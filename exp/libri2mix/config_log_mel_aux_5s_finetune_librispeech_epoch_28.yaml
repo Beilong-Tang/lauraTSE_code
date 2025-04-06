@@ -1,0 +1,160 @@
+## 
+## Same as the config_log_mel_aux_5s.yaml. This is just to make a new config and experiment for
+## the finetune 
+##
+
+init_param: ["/public/home/qinxy/bltang/LLM_TTS/egs/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth:quantizer.rq.model:quantizer_codebook"]
+
+# For inference need
+codec_model_file: /public/home/qinxy/bltang/LLM_TTS/egs/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth
+codec_config_file: /public/home/qinxy/bltang/LLM_TTS/egs/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/config.yaml
+
+train_shape_file: ["/public/home/qinxy/bltang/data/LibriMix/Libri2Mix/wav16k/min/libri2mix_tse_data_funcodec/s1/train/all_shape.scp"]
+valid_shape_file: ["/public/home/qinxy/bltang/data/LibriMix/Libri2Mix/wav16k/min/libri2mix_tse_data_funcodec/s1/dev/all_shape.scp"]
+train_data_path_and_name_and_type: [
+    [
+        "/public/home/qinxy/bltang/data/LibriMix/Libri2Mix/wav16k/min/lists/train/all/mix.scp",
+        "raw",
+        "sound"
+    ],
+    [
+        "/public/home/qinxy/bltang/data/LibriMix/Libri2Mix/wav16k/min/lists/train/all/aux_s1.scp",
+        "raw_aux",
+        "sound"
+    ],
+    [
+        "/public/home/qinxy/bltang/data/LibriMix/Libri2Mix/wav16k/min/libri2mix_tse_data_funcodec/s1/train/all.scp",
+        "codec",
+        "npy"
+    ]
+]
+valid_data_path_and_name_and_type: [
+     [
+        "/public/home/qinxy/bltang/data/LibriMix/Libri2Mix/wav16k/min/lists/dev/mix.scp",
+        "raw",
+        "sound"
+    ],
+    [
+        "/public/home/qinxy/bltang/data/LibriMix/Libri2Mix/wav16k/min/lists/dev/aux_s1.scp",
+        "raw_aux",
+        "sound"
+    ],
+    [
+        "/public/home/qinxy/bltang/data/LibriMix/Libri2Mix/wav16k/min/libri2mix_tse_data_funcodec/s1/dev/all.scp",
+        "codec",
+        "npy"
+    ]
+]
+
+grad_clip: 5
+seed: 1234
+init: null
+
+# input related
+input_size: 128 # Mel spectrogram the input size should be 80
+use_preprocessor: False
+audio_max_duration: 60
+codec_token_rate: 25
+
+# network architecture
+# encoder related
+text_encoder: conformer
+text_encoder_conf:
+    output_size: 512    # dimension of attention
+    attention_heads: 8
+    linear_units: 2048  # the number of units of position-wise feed forward
+    num_blocks: 6      # the number of encoder blocks
+    dropout_rate: 0.1
+    positional_dropout_rate: 0.1
+    attention_dropout_rate: 0.0
+    input_layer: linear # encoder architecture type
+    normalize_before: true
+    rel_pos_type: latest
+    pos_enc_layer_type: rel_pos
+    selfattention_layer_type: rel_selfattn
+    use_cnn_module: false
+
+# decoder related
+codec_encoder: conformer
+codec_encoder_conf:
+    output_size: 512    # dimension of attention
+    attention_heads: 8
+    linear_units: 2048  # the number of units of position-wise feed forward
+    num_blocks: 6      # the number of encoder blocks
+    dropout_rate: 0.1
+    positional_dropout_rate: 0.1
+    attention_dropout_rate: 0.0
+    input_layer: linear # encoder architecture type
+    normalize_before: true
+    rel_pos_type: latest
+    pos_enc_layer_type: rel_pos
+    selfattention_layer_type: rel_selfattn
+    use_cnn_module: false
+
+# model related
+model: laura_gen_model
+model_conf:
+    codec_sampling_ratio: 0.5
+    lsm_weight: 0.0
+    length_normalized_loss: true
+    predict_nq: 2
+    codec_conf:
+        num_quantizers: 32
+        codebook_size: 1024
+        codebook_dim: 128
+    codec_lm_conf:
+        name: transformer
+        pos_enc: rel_pos
+        selfattention_layer_type: rel_selfattn
+        embed_unit: 128
+        att_unit: 512
+        head: 8
+        unit: 2048
+        # layer: 12
+        layer: 10
+        dropout_rate: 0.1
+        pe_type: uni
+        bidirectional_inputs: true
+        codec_groups: 1
+
+### Training related
+batch_type: length
+batch_bins: 7680
+batch_size: 40 # This does not matter here
+sort_in_batch: descending
+sort_batch: descending
+num_workers: 8
+max_cache_size: 0.0
+max_cache_fd: 32
+train_dtype: float32
+## Add for argument type checking
+allow_variable_data_keys: true
+drop_last: false
+fold_length: []
+
+### Mel config ###
+mel_config:
+  n_fft: 512
+  hop_size: 256
+  log_mel: True
+
+### Max aux length ###
+max_aux_ds: 5
+
+optim:
+    type: Adam
+    args:
+        lr: 1.0e-4
+
+scheduler: warmuplr
+scheduler_conf:
+    warmup_steps: 10000
+
+best_field: loss
+best_save_type: descend
+max_ckpt: 1
+log_interval: 10
+epoch: 50
+
+# training process
+# num_iters_per_epoch: 10000
