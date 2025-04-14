@@ -7,3 +7,13 @@
 
 
 Official repository for LauraTSE: Target Speaker Extraction using Auto-Regressive Decoder-Only Language Models. 
+
+## Installation
+
+1. Install [FunCodec](https://github.com/modelscope/FunCodec).
+2. Install the dependencies `pip install -r requirements.txt`
+
+## Checkpoints
+
+!TODO!
+
