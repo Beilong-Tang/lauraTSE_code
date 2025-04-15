@@ -32,12 +32,12 @@ train_data_path_and_name_and_type: [
 valid_data_path_and_name_and_type: [
      [
         "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/dev/mix.scp",
-        "raw",
+        "text",
         "eval_mix"
     ],
     [
         "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/dev/aux_s1.scp",
-        "raw_aux",
+        "aux",
         "eval_ref"
     ],
     [

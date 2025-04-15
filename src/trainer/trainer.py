@@ -230,6 +230,7 @@ class Trainer:
                 res["time/batch"] = f"{time_per_batch}s"
                 start_time = time.time()
                 self._log(f"tr, {dict_to_str(res)}")
+                break
             self.step += 1
             self.step_left -= 1
         self.epoch_duration = time.time() - _epoch_start_time
@@ -238,7 +239,7 @@ class Trainer:
         self.model.eval()
         result = None
         if self.rank == 0:
-            print(f"evaluating on cv_data of len {len(cv_data)* 1}")
+            print(f"Evaluating...")
         with torch.no_grad():
             for data in cv_data:
                 res = self._eval_one_batch(data)
