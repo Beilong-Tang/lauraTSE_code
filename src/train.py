@@ -18,7 +18,7 @@ from funcodec.torch_utils.load_pretrained_model import load_pretrained_model
 
 from _funcodec import init_sequence_iter_factory, init_dm_sequence_iter_factory, build_model
 
-from trainer.abs_trainer import Trainer
+from trainer.trainer import Trainer
 from utils.utils import setup_logger, init, AttrDict
 
 def setup_seed(seed, rank):
