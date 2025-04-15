@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH -J run_tse_libri2mix_log_mel_config_aux_5s_only_clean
+#SBATCH -J run_tse_librispeech_dm
 #SBATCH -N 4
-#SBATCH -o log/run_tse_libri2mix_log_mel_config_aux_5s_only_clean.out
-#SBATCH -e log/run_tse_libri2mix_log_mel_config_aux_5s_only_clean.err
+#SBATCH -o log/run_tse_librispeech_dm.out
+#SBATCH -e log/run_tse_librispeech_dm.err
 #SBATCH -p kshdnormal02
 #SBATCH --cpus-per-task=8
 #SBATCH --ntasks-per-node=4
@@ -14,14 +14,14 @@
 # export NCCL_SOCKET_IFNAME=ib0
 
 # export ROCBLAS_TENSILE_LIBPATH=/public/software/compiler/rocm/dtk-23.10/lib/rocblas/library_dcu2
-source /public/software/apps/DeepLearning/whl/env.sh
-source ~/anaconda3/etc/profile.d/conda.sh
-conda activate urgent2025 # using urgent2025 environment
+# source /public/software/apps/DeepLearning/whl/env.sh
+# source ~/anaconda3/etc/profile.d/conda.sh
+# conda activate urgent2025 # using urgent2025 environment
 
-module purge
-module load compiler/devtoolset/7.3.1
-module load mpi/hpcx/2.7.4/gcc-7.3.1
-module load compiler/dtk/24.04
+# module purge
+# module load compiler/devtoolset/7.3.1
+# module load mpi/hpcx/2.7.4/gcc-7.3.1
+# module load compiler/dtk/24.04
 
 ###########
 # Setting #
@@ -47,17 +47,17 @@ mkdir -p $log_path
 ###############
 # change 5-digit MASTER_PORT as you wish, slurm will raise Error if duplicated with others
 # change WORLD_SIZE as gpus/node * num_nodes
-export MASTER_PORT=12340
-export WORLD_SIZE=16
+# export MASTER_PORT=12340
+# export WORLD_SIZE=16
 
-echo "NODELIST="${SLURM_NODELIST}
-master_addr=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
-export MASTER_ADDR=$master_addr
-echo "MASTER_ADDR="$MASTER_ADDR
+# echo "NODELIST="${SLURM_NODELIST}
+# master_addr=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
+# export MASTER_ADDR=$master_addr
+# echo "MASTER_ADDR="$MASTER_ADDR
 
-srun python -u src/train.py --config $config_path --log $log_path --ckpt_path $ckpt_path --resume $resume
+# srun python -u src/train.py --config $config_path --log $log_path --ckpt_path $ckpt_path --resume $resume
 ###############
 ## Run  DDP  ##
 ###############
-# export CUDA_VISIBLE_DEVICES="0,1,2,3"
-# python -u train.py --config $config_path --log $log_path --ckpt_path $ckpt_path --resume $resume
+export CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7"
+python -u src/train.py --config $config_path --log $log_path --ckpt_path $ckpt_path --resume $resume

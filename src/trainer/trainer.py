@@ -258,7 +258,7 @@ class Trainer:
 
     def train(self):
         for epoch in range(self.epoch_start, self.config.epoch):
-            self._log(f"...epoch {epoch}...")
+            self._log(f"...epoch [{epoch}|{self.config.epoch}]...")
             tr_data = self.tr_data.build_iter(epoch)
             cv_data = self.cv_data.build_iter(epoch, shuffle=False)
 

@@ -26,7 +26,7 @@ train_data_path_and_name_and_type: [
         "ref_mel"
     ],
     [
-        "/DKUdata/tangbl/data/librispeech/funcodec/data/train/all.scp",
+        "/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/train/all.scp",
         "codec",
         "npy"
     ]
@@ -51,7 +51,7 @@ valid_data_path_and_name_and_type: [
 ]
 codec_hop_size: 640
 audio_fs: 16000
-max_mix_ds: 20
+max_mix_ds: 15
 max_aux_ds: 5
 
 ############
@@ -64,9 +64,9 @@ max_ckpt: 1
 log_interval: 10
 epoch: 50
 
-batch_bins: 10000 # for 4 gpu cards with 46Gb each. You can modify this based on your gpu bandwidth.
+batch_bins: 16000 # for 8 gpu cards with 46Gb each. You can modify this based on your gpu bandwidth.
 batch_size: 40 # Does not matter
-num_workers: 8
+num_workers: 4
 
 # Optimizer
 optim:
