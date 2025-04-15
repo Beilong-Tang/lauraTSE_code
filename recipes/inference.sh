@@ -25,8 +25,8 @@ output_dir="output/test"
 mkdir -p $output_dir
 
 # DDP #
-num_proc=2
-gpus="cuda:0 cuda:1"
+num_proc=4
+gpus="cuda:0 cuda:1 cuda:2 cuda:3"
 
 ###########
 
