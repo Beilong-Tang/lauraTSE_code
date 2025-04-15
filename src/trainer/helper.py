@@ -5,6 +5,16 @@ import torch
 from typing import Union
 from pathlib import Path
 import pickle
+import torch.distributed as dist
+import functools
+
+def rank_zero_only(func):
+    """Decorator to ensure a function only runs on rank 0 in a distributed setting."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        if not dist.is_initialized() or dist.get_rank() == 0:
+            return func(*args, **kwargs)
+    return wrapper
 
 
 def dict_to_str(dictionary):
@@ -40,7 +50,7 @@ def normalize_result(result: dict, length: int):
             result[key] = result[key] / length
     return result
 
-
+@rank_zero_only
 def save_stats(path, content):
     ## TODO: Finish Saving the stats
     dirname = op.dirname(path)
