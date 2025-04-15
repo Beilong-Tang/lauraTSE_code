@@ -88,9 +88,13 @@ class DMESPnetDataset(ESPnetDataset):
                     elif key2 == "max_cache_fd":
                         kwargs["max_cache_fd"] = self.max_cache_fd
                     
-                    ## Add the conf_dm_noise here to support dynamic mixing of noise
-                    elif key2 == "conf_dm_noise":
-                        kwargs["conf_dm_noise"] = self.conf_dm_noise
+                    ## Add the dynamic mixing here
+                    elif key2 == "spk_dict_path":
+                        kwargs['spk_dict_path'] = self.spk_dict_path 
+                    elif key2 == "mel_config":
+                        kwargs['mel_config'] = self.mel_config
+                    elif key2 =="ref_ds":
+                        kwargs['ref_ds'] = self.ref_ds
                     else:
                         raise RuntimeError(f"Not implemented keyword argument: {key2}")
 
