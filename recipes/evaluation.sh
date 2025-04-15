@@ -26,7 +26,7 @@ mkdir -p $output_dir
 
 # DDP #
 num_proc=4
-gpus="cuda:4 cuda:5 cuda:6 cuda:7"
+gpus="cuda:0 cuda:1 cuda:2 cuda:3"
 
 ###########
 
