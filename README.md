@@ -10,8 +10,13 @@ Official repository for LauraTSE: Target Speaker Extraction using Auto-Regressiv
 
 ## Installation
 
-1. Install [FunCodec](https://github.com/modelscope/FunCodec).
-2. Install the dependencies `pip install -r requirements.txt`
+1. Install [FunCodec](https://github.com/modelscope/FunCodec) package.
+2. Install FunCodec [model](https://github.com/modelscope/FunCodec?tab=readme-ov-file#available-models). `audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch` is the model used in our experiments.
+3. Install the dependencies `pip install -r requirements.txt`.
+
+## Data Preprocessing
+
+
 
 ## Checkpoints
 
