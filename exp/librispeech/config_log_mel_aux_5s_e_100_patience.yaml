@@ -1,8 +1,16 @@
+############
+# FunCodec #
+############
+
 init_param: ["/DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth:quantizer.rq.model:quantizer_codebook"]
 
 # For inference need
 codec_model_file: /DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth
 codec_config_file: /DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/config.yaml
+
+########
+# Data #
+########
 
 train_shape_file: ["/DKUdata/tangbl/data/librispeech/funcodec/data/train/all_shape.scp"]
 valid_shape_file: ["/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/dev/all_shape.scp"]
@@ -47,13 +55,45 @@ audio_fs: 16000
 max_mix_ds: 15
 max_aux_ds: 5
 
-### Training related
+############
+# Training #
+############
+
+best_field: loss
+best_save_type: descend
+max_ckpt: 1
+log_interval: 10
+epoch: 50
+
+batch_bins: 7680 # for 4 gpu cards with 46Gb each. You can modify this based on your gpu bandwidth.
+batch_size: 40 # Does not matter
+num_workers: 8
+
+# Optimizer
+optim:
+    type: Adam
+    args:
+        lr: 1.0e-3
+
+# Warmup Scheduler
+scheduler: warmuplr
+scheduler_conf:
+    warmup_steps: 10000
+
+
+grad_clip: 5
+seed: 1234
+init: null
+
+input_size: 128 
+use_preprocessor: False
+audio_max_duration: 60
+codec_token_rate: 25
+
+# Don't change #
 batch_type: length
-batch_bins: 7680 # for 6 gpu cards (1920 per gpu)
-batch_size: 40 # This does not matter here
 sort_in_batch: descending
 sort_batch: descending
-num_workers: 8
 max_cache_size: 0.0
 max_cache_fd: 32
 train_dtype: float32
@@ -62,42 +102,20 @@ allow_variable_data_keys: true
 drop_last: false
 fold_length: []
 
+
+
+#########
+# Model #
+#########
+
 ### Mel config ###
 mel_config:
   n_fft: 512
   hop_size: 256
   log_mel: True
 
-### Max aux length ###
-max_aux_ds: 5
 
-optim:
-    type: Adam
-    args:
-        lr: 1.0e-3
-
-scheduler: warmuplr
-scheduler_conf:
-    warmup_steps: 10000
-
-best_field: loss
-best_save_type: descend
-max_ckpt: 1
-log_interval: 10
-epoch: 50
-
-grad_clip: 5
-seed: 1234
-init: null
-
-# input related
-input_size: 128 
-use_preprocessor: False
-audio_max_duration: 60
-codec_token_rate: 25
-
-# network architecture
-# encoder related
+### Conformer Encoder
 text_encoder: conformer
 text_encoder_conf:
     output_size: 512    # dimension of attention
@@ -114,7 +132,7 @@ text_encoder_conf:
     selfattention_layer_type: rel_selfattn
     use_cnn_module: false
 
-# decoder related
+### Encoder-only LM
 codec_encoder: conformer
 codec_encoder_conf:
     output_size: 512    # dimension of attention
@@ -131,7 +149,7 @@ codec_encoder_conf:
     selfattention_layer_type: rel_selfattn
     use_cnn_module: false
 
-# model related
+# Auto-regressive Decoder-only LM
 model: laura_gen_model
 model_conf:
     codec_sampling_ratio: 0.5
