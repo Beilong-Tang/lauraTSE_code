@@ -18,7 +18,7 @@ import random
 import librosa
 import pickle
 from pathlib import Path
-from src.utils.mel_spectrogram import MelSpec
+from utils.mel_spectrogram import MelSpec
 
 from utils.audio import read_audio
 from utils.utils import AttrDict
