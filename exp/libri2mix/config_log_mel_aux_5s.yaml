@@ -12,19 +12,18 @@ codec_config_file: /DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-e
 # Data #
 ########
 
-train_shape_file: ["/DKUdata/tangbl/data/librispeech/funcodec/data/train/all_shape.scp"]
+train_shape_file: ["/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/train/all_shape.scp"]
 valid_shape_file: ["/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/dev/all_shape.scp"]
-spk_dict_path: /DKUdata/tangbl/data/librispeech/train_clean_100_360.pkl
 train_data_path_and_name_and_type: [
     [
-        "/DKUdata/tangbl/data/librispeech/clean.scp",
+        "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/train/all/mix.scp",
         "text",
-        "dm_mix"
+        "mix_mel"
     ],
     [
-        "/DKUdata/tangbl/data/librispeech/clean.scp",
+        "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/train/all/aux_s1.scp",
         "aux",
-        "dm_ref"
+        "ref_mel"
     ],
     [
         "/DKUdata/tangbl/data/librispeech/funcodec/data/train/all.scp",
@@ -52,7 +51,7 @@ valid_data_path_and_name_and_type: [
 ]
 codec_hop_size: 640
 audio_fs: 16000
-max_mix_ds: 15
+max_mix_ds: 20
 max_aux_ds: 5
 
 ############
@@ -65,7 +64,7 @@ max_ckpt: 1
 log_interval: 10
 epoch: 50
 
-batch_bins: 7680 # for 4 gpu cards with 46Gb each. You can modify this based on your gpu bandwidth.
+batch_bins: 10000 # for 4 gpu cards with 46Gb each. You can modify this based on your gpu bandwidth.
 batch_size: 40 # Does not matter
 num_workers: 8
 
