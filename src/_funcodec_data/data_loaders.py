@@ -24,29 +24,6 @@ from utils.audio import read_audio
 from utils.utils import AttrDict
 from utils.hinter import hint_once
 
-DATA_TYPES = {
-    "sound": dict(
-        func=sound_loader,
-        kwargs=["float_dtype"],
-        help="Audio format types which supported by sndfile wav, flac, etc."
-        "\n\n"
-        "   utterance_id_a a.wav\n"
-        "   utterance_id_b b.wav\n"
-        "   ...",
-    ),
-    "npy": dict(
-        func=NpyScpReader,
-        kwargs=[],
-        help="Npy file format."
-        "\n\n"
-        "   utterance_id_A /some/where/a.npy\n"
-        "   utterance_id_B /some/where/b.npy\n"
-        "   ...",
-    )
-}
-
-
-
 
 def normalize(audio):
     max_value = np.max(np.abs(audio))
@@ -150,3 +127,37 @@ class MelReader:
             audio = audio[-int(sr * self.ds):]
         audio = normalize(audio)
         return self.mel_proc.mel_one_np(audio)
+    
+
+
+DATA_TYPES = {
+    "dm_mix": dict(
+        func=DmMixMelReader, 
+        kwargs=['spk_dict_path', "mel_config"],
+        help="Dynamic Mixing for mixture log-mel"
+        ),
+    "dm_libri_ref": dict(
+        func=DmRefMelReader, 
+        kwargs=['spk_dict_path', "mel_config", "ref_ds"],
+        help="Dynamic Mixing for reference log-mel for librispeech"
+        ),
+    "npy": dict(
+        func=NpyScpReader,
+        kwargs=[],
+        help="Npy file format."
+        "\n\n"
+        "   utterance_id_A /some/where/a.npy\n"
+        "   utterance_id_B /some/where/b.npy\n"
+        "   ..."
+    ),
+    "sound": dict(
+        func=sound_loader,
+        kwargs=["float_dtype"],
+        help="Audio format types which supported by sndfile wav, flac, etc."
+        "\n\n"
+        "   utterance_id_a a.wav\n"
+        "   utterance_id_b b.wav\n"
+        "   ...",
+    )
+}
+
