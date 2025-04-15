@@ -230,7 +230,6 @@ class Trainer:
                 res["time/batch"] = f"{time_per_batch}s"
                 start_time = time.time()
                 self._log(f"tr, {dict_to_str(res)}")
-                break
             self.step += 1
             self.step_left -= 1
         self.epoch_duration = time.time() - _epoch_start_time
