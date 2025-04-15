@@ -20,6 +20,21 @@ class MelSpec:
         self.n_fft = n_fft
         self.hop_size = hop_size
         self.log_mel = log_mel
+    
+    def mel_one_np(self, audio: np.ndarray):
+        """
+        Args:
+            audio: [T]
+        Returns:
+            mel: [T, D(80)]
+        """
+        mel = librosa.feature.melspectrogram(
+                y=audio, sr=self.fs, n_fft=self.n_fft, hop_length=self.hop_size
+            )
+        if self.log_mel:
+            mel = librosa.power_to_db(mel, ref = np.max)
+        mel = np.transpose(mel, (1,0)) # [T', 80]
+        return mel
 
     def mel(self, audio: torch.Tensor, mask: torch.Tensor):
         """
