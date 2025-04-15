@@ -78,6 +78,7 @@ class DMESPnetDataset(ESPnetDataset):
             path:  The file path
             loader_type:  loader_type. sound, npy, text_int, text_float, etc
         """
+        global DATA_TYPES
         for key, dic in DATA_TYPES.items():
             # e.g. loader_type="sound"
             # -> return DATA_TYPES["sound"]["func"](path)
