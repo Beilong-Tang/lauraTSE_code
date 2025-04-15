@@ -63,7 +63,7 @@ best_field: loss
 best_save_type: descend
 max_ckpt: 1
 log_interval: 10
-epoch: 50
+epoch: 100
 
 batch_bins: 7680 # for 4 gpu cards with 46Gb each. You can modify this based on your gpu bandwidth.
 batch_size: 40 # Does not matter
