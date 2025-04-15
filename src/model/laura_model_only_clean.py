@@ -74,7 +74,7 @@ class LauraTSE(AbsESPnetModel):
         # 2. build Music language model related moduels
         self.sos_eos = 0
         self.task_id = 1
-        self.sep = 2
+        self.sep = 2 # Special Token to separate reference and mixture
         # embedding for sos_eos and task id
         self.lm_embedding = torch.nn.Embedding(3, self.codebook_dim)
         self.lm_out_voc_size = (self.codebook_size + 1) * self.predict_nq
@@ -370,7 +370,7 @@ class LauraTSE(AbsESPnetModel):
             text_lengths: (B,)
             aux: (B, L, D) ## The referene Log-Mel Spectrogram
             aux_lengths: (B,)
-            codec: (B, T, N) ## The target clean codec
+            codec: (B, L, N) ## The target clean codec
             codec_lengths: (B,)
         """
         text = text[:, :text_lengths.max()]
