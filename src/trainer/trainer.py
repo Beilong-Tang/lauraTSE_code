@@ -4,7 +4,7 @@ import os
 import time
 import torch.distributed as dist
 import torch.distributed
-from utils.mel_spectrogram import MelSpec
+from utils.postprocess import MaxLength, Normalize
 from datetime import timedelta
 
 from funcodec.iterators.sequence_iter_factory import SequenceIterFactory
@@ -80,13 +80,15 @@ class Trainer:
         self.new_bob = config.new_bob
         self.cv_log = {}
         self.epoch_duration = None
+        self.max_mix_ds = config.max_mix_ds
+        self.max_aux_ds = config.max_aux_ds
+        self.audio_fs = config.audio_fs
+        self.codec_hop_size = config.codec_hop_size
+
         ## Mel Spectrogram
 
-        if config.mel_config is not None: 
-            print(f"Using mel config: {config.mel_config}")
-            self.mel_process = MelSpec(**config.mel_config)
-        else:
-            self.mel_process = MelSpec()
+        self.mix_process = MaxLength(['text'], max_len= int(self.max_mix_ds * self.audio_fs / config.mel_config['hop_size']))
+        self.codec_process = MaxLength(['codec'], max_len=int(self.max_mix_ds * self.audio_fs / self.codec_hop_size))
 
         self.max_aux_ds = config.max_aux_ds # Maximum auxiliary audio length in seconds
 

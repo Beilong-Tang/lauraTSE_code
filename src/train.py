@@ -16,7 +16,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from funcodec.schedulers.warmup_lr import WarmupLR
 from funcodec.torch_utils.load_pretrained_model import load_pretrained_model
 
-from _funcodec import init_sequence_iter_factory, init_dm_sequence_iter_factory, build_model
+from _funcodec import init_sequence_iter_factory, build_model
 
 from trainer.trainer import Trainer
 from utils.utils import setup_logger, init, AttrDict

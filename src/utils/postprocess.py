@@ -43,31 +43,21 @@ class MaxLength():
                 _res_dict[_key+"_lengths"] = torch.tensor(res_len, dtype = torch.long)
             return _res_dict
 
-# class CleanNoisyFilter():
+class Normalize():
+    def __init__(self):
+        pass
 
-#     def __init__(self):
-#         """
-#         Post process for data class that combines clean, noisy into data where each of them have the same length
-#         """
-#         pass 
+    def norm_one(self, audio):
+        max_value = torch.max(torch.abs(audio))
+        return audio * (1 / max_value)
 
-#     def __call__(self, data:torch.Tensor, data_lengths: torch.Tensor):
-#         res_clean_len = []
-#         res_clean = []
-#         res_noisy_len = []
-#         res_noisy = []
-#         for item, item_len in zip(data, data_lengths): # [T], 1'
-#             _clean_noisy = item[:item_len.item()]
-#             _each_length = int(item_len.item() / 2)
-#             _clean = _clean_noisy[:_each_length]
-#             _noisy = _clean_noisy[_each_length:]
-#             assert len(_clean) == len(_noisy) 
-#             res_clean_len.append(_each_length)
-#             res_noisy_len.append(_each_length)
-#             res_clean.append(_clean)
-#             res_noisy.append(_noisy)
-#         res_clean = pad_list(res_clean, 0.0)
-#         res_noisy = pad_list(res_noisy, 0.0)
-#         res_clean_len = torch.tensor(res_clean_len, dtype = torch.long)
-#         res_noisy_len = torch.tensor(res_noisy_len, dtype = torch.long)
-#         return res_clean, res_clean_len, res_noisy, res_noisy_len
+    def normalize(self, data, data_lengths):
+        """
+        data: [B,T]
+        data_lengths: [B]
+        """
+        for idx, _item in enumerate(data):
+            _d = _item[:data_lengths[idx].item()]
+            _d = self.norm_one(_d)
+            data[idx][:data_lengths[idx].item()] = _d
+        return data, data_lengths
