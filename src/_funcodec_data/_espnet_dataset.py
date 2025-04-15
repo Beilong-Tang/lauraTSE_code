@@ -61,7 +61,6 @@ class DMESPnetDataset(ESPnetDataset):
         mel_config: dict = None,
         ref_ds = 5
     ):
-        assert spk_dict_path is not None
         self.mel_config = mel_config
         self.spk_dict_path = spk_dict_path
         self.ref_ds = ref_ds

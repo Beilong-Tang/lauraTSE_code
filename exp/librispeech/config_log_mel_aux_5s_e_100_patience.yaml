@@ -65,8 +65,8 @@ max_ckpt: 1
 log_interval: 10
 epoch: 100
 
-batch_bins: 7680 # for 4 gpu cards with 46Gb each. You can modify this based on your gpu bandwidth.
-batch_size: 40 # Does not matter
+batch_bins: 7680 # for 4 gpu cards with 46Gb each. You can modify this based on the gpu bandwidth.
+batch_size: 40 # This does not matter here
 num_workers: 8
 
 # Optimizer
@@ -80,6 +80,9 @@ scheduler: warmuplr
 scheduler_conf:
     warmup_steps: 10000
 
+## patience scheduler
+patience:
+    epoch: 50 # the epoch to start patience scheduler
 
 grad_clip: 5
 seed: 1234
