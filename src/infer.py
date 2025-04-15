@@ -23,16 +23,19 @@ from utils.mel_spectrogram import MelSpec
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    ## laura gpt related
-    parser.add_argument("--sampling", default=25, type=int)
-    parser.add_argument("--beam_size", default=1, type=int)
-
     parser.add_argument("--mix_wav_scp", type=str, default = None)
     parser.add_argument("--ref_wav_scp", type=str, default = None)
+    parser.add_argument("--output_dir", type=str)
 
     parser.add_argument("--config", type=str)
     parser.add_argument("--model_ckpt", type=str)
-    parser.add_argument("--output_dir", type=str)
+
+    parser.add_argument('--codec_model_file', type=str, required=True)
+    parser.add_argument('--codec_config_file', type=str, required=True)
+
+    parser.add_argument("--sampling", default=25, type=int)
+    parser.add_argument("--beam_size", default=1, type=int)
+
     ## DDP
     parser.add_argument("--num_proc", type=int, default=4)
     parser.add_argument(
@@ -44,6 +47,7 @@ def parse_args():
 
 def main(args):
     print(args)
+    args.init_param = [f"{args.codec_model_file}:quantizer.rq.model:quantizer_codebook"]
     os.makedirs(args.output_dir, exist_ok=True)
     setup_seed(1234, 0)
     mp.spawn(inference, args=(args,), nprocs=args.num_proc, join=True)
@@ -75,6 +79,7 @@ def inference(rank, args):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     # load model
+    logger.info("loading model")
     tse = TSExtraction(args, args.model_ckpt, device, logger)
     # mel spec
     mel_spec = MelSpec(**args.mel_config)
