@@ -6,11 +6,7 @@ codec_config_file: /DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-e
 
 train_shape_file: ["/DKUdata/tangbl/data/librispeech/funcodec/data/train/all_shape.scp"]
 valid_shape_file: ["/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/dev/all_shape.scp"]
-codec_hop_size: 640
-audio_fs: 16000
 spk_dict_path: /DKUdata/tangbl/data/librispeech/train_clean_100_360.pkl
-max_mix_ds: 15
-max_aux_ds: 5
 train_data_path_and_name_and_type: [
     [
         "/DKUdata/tangbl/data/librispeech/clean.scp",
@@ -33,12 +29,12 @@ valid_data_path_and_name_and_type: [
      [
         "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/dev/mix.scp",
         "text",
-        "eval_mix"
+        "mix_mel"
     ],
     [
         "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/dev/aux_s1.scp",
         "aux",
-        "eval_ref"
+        "ref_mel"
     ],
     [
         "/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/dev/all.scp",
@@ -46,6 +42,10 @@ valid_data_path_and_name_and_type: [
         "npy"
     ]
 ]
+codec_hop_size: 640
+audio_fs: 16000
+max_mix_ds: 15
+max_aux_ds: 5
 
 ### Training related
 batch_type: length
