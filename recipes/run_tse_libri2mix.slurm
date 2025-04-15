@@ -59,5 +59,5 @@ mkdir -p $log_path
 ###############
 ## Run  DDP  ##
 ###############
-export CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7"
+export CUDA_VISIBLE_DEVICES="0,1,2,3"
 python -u src/train.py --config $config_path --log $log_path --ckpt_path $ckpt_path --resume $resume
