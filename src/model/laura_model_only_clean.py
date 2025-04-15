@@ -14,10 +14,9 @@ from copy import deepcopy
 
 from funcodec.models.audio_generation.laura_model import QuantizerCodebook
 
-class LauraGenModelOnlyClean(AbsESPnetModel):
+class LauraTSE(AbsESPnetModel):
     """
-    This class implement the LauraGPT-style audio generation model [1]. It can be trained for
-    speech, music, audio generation tasks with corresponding datasets.
+    LauraTSE model from LauraGPT Backbone[1]. 
 
     [1] LauraGPT: Listen, Attend, Understand, and Regenerate Audio with GPT, 2023,
     https://arxiv.org/abs/2310.04673
@@ -367,12 +366,12 @@ class LauraGenModelOnlyClean(AbsESPnetModel):
     ) -> Tuple[torch.Tensor, Dict[str, torch.Tensor], torch.Tensor]:
         """
         Args:
-            text: (B, L, D) ## The mixture Mel
+            text: (B, L, D) The mixture Log-Mel Spectrogram
             text_lengths: (B,)
-            aux: (B, L, D) ## The referene Mel
+            aux: (B, L, D) ## The referene Log-Mel Spectrogram
             aux_lengths: (B,)
-            codec: (B, T, N) ## The clean
-            codec_lengths: (B,) ## Clean length
+            codec: (B, T, N) ## The target clean codec
+            codec_lengths: (B,)
         """
         text = text[:, :text_lengths.max()]
         aux = aux[:, :aux_lengths.max()]

@@ -34,7 +34,7 @@ def init_dm_sequence_iter_factory(args, rank, mode) -> SequenceIterFactory:
     return build_sequence_iter_factory(args, iter_option, mode)
 
 from funcodec.tasks.text2audio_generation import text_encoder_choices, codec_encoder_choices
-from model.laura_model_only_clean import LauraGenModelOnlyClean
+from model.laura_model_only_clean import LauraTSE
 from funcodec.torch_utils.initialize import initialize
 import os
 
@@ -70,7 +70,7 @@ def build_model(args):
         else:
             raise TypeError("If token_list is not None, it must be list or str.")
     # model_class = model_choices.get_class(args.model)
-    model = LauraGenModelOnlyClean(
+    model = LauraTSE(
         input_size=input_size,
         vocab_size=len(token_list),
         token_list=token_list,
