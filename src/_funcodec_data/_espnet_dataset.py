@@ -57,9 +57,14 @@ class DMESPnetDataset(ESPnetDataset):
         int_dtype: str = "long",
         max_cache_size: Union[float, int, str] = 0.0,
         max_cache_fd: int = 0,
-        conf_dm_noise='conf_dm_noise/simulation_train.yaml',
+        spk_dict_path:str = None, ## Note that this cannot be None
+        mel_config: dict = None,
+        ref_ds = 5
     ):
-        self.conf_dm_noise = conf_dm_noise # This line has to be written before the super().__init__() method
+        assert spk_dict_path is not None
+        self.mel_config = mel_config
+        self.spk_dict_path = spk_dict_path
+        self.ref_ds = ref_ds
         super().__init__(path_name_type_list, preprocess, float_dtype, int_dtype, max_cache_size, max_cache_fd)
         
     
