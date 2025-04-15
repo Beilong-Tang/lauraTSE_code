@@ -15,12 +15,12 @@ train_data_path_and_name_and_type: [
     [
         "/DKUdata/tangbl/data/librispeech/clean.scp",
         "text",
-        "dm_libri_mix"
+        "dm_mix"
     ],
     [
         "/DKUdata/tangbl/data/librispeech/clean.scp",
         "aux",
-        "dm_libri_ref"
+        "dm_ref"
     ],
     [
         "/DKUdata/tangbl/data/librispeech/funcodec/data/train/all.scp",
@@ -33,12 +33,12 @@ valid_data_path_and_name_and_type: [
      [
         "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/dev/mix.scp",
         "raw",
-        "sound"
+        "eval_mix"
     ],
     [
         "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/dev/aux_s1.scp",
         "raw_aux",
-        "sound"
+        "eval_ref"
     ],
     [
         "/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/dev/all.scp",
