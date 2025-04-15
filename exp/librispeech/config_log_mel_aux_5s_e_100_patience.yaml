@@ -47,6 +47,45 @@ valid_data_path_and_name_and_type: [
     ]
 ]
 
+### Training related
+batch_type: length
+batch_bins: 7680 # for 6 gpu cards (1920 per gpu)
+batch_size: 40 # This does not matter here
+sort_in_batch: descending
+sort_batch: descending
+num_workers: 8
+max_cache_size: 0.0
+max_cache_fd: 32
+train_dtype: float32
+## Add for argument type checking
+allow_variable_data_keys: true
+drop_last: false
+fold_length: []
+
+### Mel config ###
+mel_config:
+  n_fft: 512
+  hop_size: 256
+  log_mel: True
+
+### Max aux length ###
+max_aux_ds: 5
+
+optim:
+    type: Adam
+    args:
+        lr: 1.0e-3
+
+scheduler: warmuplr
+scheduler_conf:
+    warmup_steps: 10000
+
+best_field: loss
+best_save_type: descend
+max_ckpt: 1
+log_interval: 10
+epoch: 50
+
 grad_clip: 5
 seed: 1234
 init: null
@@ -117,45 +156,3 @@ model_conf:
         pe_type: uni
         bidirectional_inputs: true
         codec_groups: 1
-
-### Training related
-batch_type: length
-batch_bins: 7680 # for 6 gpu cards (1920 per gpu)
-batch_size: 40 # This does not matter here
-sort_in_batch: descending
-sort_batch: descending
-num_workers: 8
-max_cache_size: 0.0
-max_cache_fd: 32
-train_dtype: float32
-## Add for argument type checking
-allow_variable_data_keys: true
-drop_last: false
-fold_length: []
-
-### Mel config ###
-mel_config:
-  n_fft: 512
-  hop_size: 256
-  log_mel: True
-
-### Max aux length ###
-max_aux_ds: 5
-
-optim:
-    type: Adam
-    args:
-        lr: 1.0e-3
-
-scheduler: warmuplr
-scheduler_conf:
-    warmup_steps: 10000
-
-best_field: loss
-best_save_type: descend
-max_ckpt: 1
-log_interval: 10
-epoch: 50
-
-# training process
-# num_iters_per_epoch: 10000
