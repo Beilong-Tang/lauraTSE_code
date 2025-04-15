@@ -13,7 +13,6 @@ import torch.distributed as dist
 import torch.nn as nn
 from torch.nn.parallel import DistributedDataParallel as DDP
 
-from funcodec.tasks.text2audio_generation import Text2AudioGenTask
 from funcodec.schedulers.warmup_lr import WarmupLR
 from funcodec.torch_utils.load_pretrained_model import load_pretrained_model
 
@@ -75,7 +74,7 @@ def main(rank, args):
     model.cuda()
     l.info(f"model {model} is intialized")
     l.info(f"model parameters: {sum(p.numel() for p in model.parameters())}")
-    l.info(f"Decoder LM parameters: {sum(p.numel() for p in model.codec_lm.parameters())}")
+    l.info(f"auto-regressive decoder-only LM parameters: {sum(p.numel() for p in model.codec_lm.parameters())}")
     for p in args.init_param:
         l.info(f"Loading pretrained params from {p}")
         load_pretrained_model(
