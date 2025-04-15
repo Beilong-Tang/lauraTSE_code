@@ -52,7 +52,7 @@ seed: 1234
 init: null
 
 # input related
-input_size: 128 # Mel spectrogram the input size should be 80
+input_size: 128 
 use_preprocessor: False
 audio_max_duration: 60
 codec_token_rate: 25
