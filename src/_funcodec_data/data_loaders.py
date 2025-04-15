@@ -136,11 +136,21 @@ DATA_TYPES = {
         kwargs=['spk_dict_path', "mel_config"],
         help="Dynamic Mixing for mixture log-mel"
         ),
-    "dm_libri_ref": dict(
+    "dm_ref": dict(
         func=DmRefMelReader, 
         kwargs=['spk_dict_path', "mel_config", "ref_ds"],
         help="Dynamic Mixing for reference log-mel for librispeech"
         ),
+    "eval_mix": dict(
+        func=MelReader, 
+        kwargs=["mel_config"],
+        help="audio to mel"
+        ), ## Mel spectrogram for the audio
+    "eval_ref": dict(
+        func=MelReader, 
+        kwargs=["mel_config", "ref_ds"],
+        help="audio to mel"
+        ), ## Mel spectrogram for the audio
     "npy": dict(
         func=NpyScpReader,
         kwargs=[],
