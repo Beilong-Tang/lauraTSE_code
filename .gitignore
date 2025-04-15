@@ -1,2 +1,24 @@
+*.out
+*.txt
+*.err
 __pycache__/
+test*
+*.pt
+ckpt/*
+*.pt
+data/*
 *.log
+output/*
+!ckpt/.gitkeep
+*.pkl
+*.flac
+*.scp
+*.pth
+*.wav
+*.csv
+ac_output/
+sv_output/
+
+
+## pyrightconfig.json
+pyrightconfig.json
