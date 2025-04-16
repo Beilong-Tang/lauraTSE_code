@@ -21,6 +21,8 @@ output_dir="output/test"
 num_proc=4
 gpus="cuda:4 cuda:5 cuda:6 cuda:7"
 
+. utils/parse_options.sh
+
 ###########
 # Set bash to 'debug' mode, it will exit on :
 # -e 'error', -o ... 'error in pipeline', -x 'print commands',
