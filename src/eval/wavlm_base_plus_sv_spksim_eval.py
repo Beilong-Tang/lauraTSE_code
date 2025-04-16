@@ -5,7 +5,7 @@
 #################
 # Global Config #
 #################
-WAVLM_BASE_PLUS_SV = "/public/home/qinxy/bltang/pkg/wavlm_base_plus_sv"
+WAVLM_BASE_PLUS_SV = "microsoft/wavlm-base-plus-sv"
 #===============#
 import os 
 import sys

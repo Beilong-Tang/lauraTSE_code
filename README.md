@@ -20,3 +20,15 @@ Official repository for LauraTSE: Target Speaker Extraction using Auto-Regressiv
 
 ## Checkpoints
 
+Our checkpoint for LauraTSE can be found at [here](https://huggingface.co/Beilong/LauraTSE).
+
+We have trained it on LibriSpeech using Dynamic Mixing with SNR 0-5 dB for 100 epochs and then finetune it on Libri2Mix for 20 epochs. 
+
+Results:
+
+|  Model   |  SIG  |  BAK  | OVRL  | NISQA | SpeechBERT | dWER  | WavLM Sim | Wespeaker Sim |
+| :------: | :---: | :---: | :---: | :---: | :--------: | :---: | :-------: | :-----------: |
+| LauraTSE | 3.609 | 4.084 | 3.336 | 4.333 |   0.908    | 0.159 |   0.974   |     0.876     |
+
+### Inference
+
