@@ -30,5 +30,29 @@ Results:
 | :------: | :---: | :---: | :---: | :---: | :--------: | :---: | :-------: | :-----------: |
 | LauraTSE | 3.609 | 4.084 | 3.336 | 4.333 |   0.908    | 0.159 |   0.974   |     0.876     |
 
-### Inference
+## Inference
+
+
+```sh
+# Input wavs
+mix_wav_scp="<Path to mix scp>"
+ref_wav_scp="<Path to reference scp>"
+
+# LauraTSE config and ckpt
+config_path="<Path to model config>"
+model_ckpt="<Path to model ckpt>"
+
+# FunCodec ckpt and config
+codec_model_file="<Path to Funcodec model ckpt>"
+codec_config_file="<Path to Funcodec model yaml>"
+
+output_dir="output/test"
+
+# DDP #
+num_proc=4 # How many processes to run in parallel
+gpus="cuda:4 cuda:5 cuda:6 cuda:7" # Available GPU numbers
+
+bash recipes/inference.sh 
+```
+
 

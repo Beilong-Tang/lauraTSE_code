@@ -31,6 +31,10 @@ name="libri2mix"
 config_path=exp/$name/config_log_mel_aux_5s.yaml
 resume=""
 
+. utils/parse_options.sh
+
+echo "resume $resume"
+
 ###############
 # DONT CHANGE #
 ###############

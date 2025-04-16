@@ -31,6 +31,10 @@ name="librispeech"
 config_path=exp/$name/config_log_mel_aux_5s_e_100_patience.yaml
 resume=""
 
+. utils/parse_options.sh
+
+echo "resume is $resume"
+
 ###############
 # DONT CHANGE #
 ###############

@@ -8,7 +8,7 @@ mix_wav_scp="/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/test/mix.
 ref_wav_scp="/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/test/aux_s1.scp"
 
 # LauraTSE config and ckpt
-config_path="/DKUdata/tangbl/laura_TSE/ckpt/config_log_mel_aux_5s_finetune_librispeech_epoch_100.yaml"
+config_path="/DKUdata/tangbl/laura_TSE/ckpt/laura_tse_librispeech_dm_e_100_config.yaml"
 model_ckpt="/DKUdata/tangbl/laura_TSE/ckpt/laura_tse_librispeech_dm_e_100.pth"
 
 # FunCodec ckpt and config
