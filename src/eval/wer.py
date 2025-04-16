@@ -55,6 +55,7 @@ def main():
     args = parse_args()
     print(f"wer args: {args}")
     os.makedirs(op.dirname(args.output), exist_ok=True)
+    os.makedirs(Path(op.dirname(args.output)) / '.temp', exist_ok=True)
     transcribe(args)
     if args.reference is not None:
         print("running wer calculation")
