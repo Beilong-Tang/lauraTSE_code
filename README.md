@@ -26,7 +26,7 @@ Our checkpoint for LauraTSE can be found at [here](https://huggingface.co/Beilon
 
 We have trained it on LibriSpeech using Dynamic Mixing with SNR 0-5 dB for 100 epochs and then finetune it on Libri2Mix for 20 epochs. 
 
-Results:
+Results on Libri2Mix clean testset:
 
 |  Model   |  SIG  |  BAK  | OVRL  | NISQA | SpeechBERT | dWER  | WavLM Sim | Wespeaker Sim |
 | :------: | :---: | :---: | :---: | :---: | :--------: | :---: | :-------: | :-----------: |
