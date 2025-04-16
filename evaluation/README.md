@@ -36,6 +36,6 @@ After the evaluation is done, the log file will be output to `output/` folder.
 ### Evaluation
 
 ```sh
-cd ..
-bash evaluation/evaluation.sh
+## Note that you need to be in the home directory to run the script
+bash evaluation/evaluation.sh 
 ```
