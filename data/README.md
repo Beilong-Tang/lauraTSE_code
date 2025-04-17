@@ -38,7 +38,7 @@ python generate_list.py --librispeech_train_100 <path_to_train-clean-100> \
  --librispeech_train_360 <path_to_train-clean-360> \
  --libri2mix_dev <path_to_libri2mix_dev> \
  --libri2mix_test <path_to_libri2mix_test> \
- --output dump/
+ --output dump/wavs/
 ```
 
 Scp files will be generated under the `list` folder of your output path.
@@ -54,7 +54,7 @@ You list folder will look like:
 │   ├── aux_s1.scp
 │   ├── mix_clean.scp
 │   └── s1.scp
-└── train
+└── librispeech_train
     ├── train_100_360_clean.scp
     └── train_100_360_spk_dict.pkl # Dict[str, list[str]] mapping a speaker to all its utterances
 ```
