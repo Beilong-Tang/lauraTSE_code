@@ -53,17 +53,10 @@ You list folder will look like:
 │   ├── mix_clean.scp
 │   └── s1.scp
 └── train
-    └── train_100_360.pt # Dict[str, list[str]] mapping a speaker to all its utterances
+    └── train_100_360_spk_dict.pkl # Dict[str, list[str]] mapping a speaker to all its utterances
 ```
 
-`train_100_360.pt` is nothing but a `Dict[str, list[str]]` which maps a 
+`train_100_360_spk_dict.pkl` is nothing but a `Dict[str, list[str]]` which maps a 
 speaker to all its utterances. 
 
-For example, you can validate that
-```python
-spk_dict = torch.load("train_100_360.pt")
-for k, v in spk_dict.items()[:1]:
-    print(k) # the speaker name
-    print(v) # the speech utterances from this speaker
-```
-
+## FunCodec generation

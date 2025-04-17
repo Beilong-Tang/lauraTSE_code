@@ -62,7 +62,7 @@ if __name__ == "__main__":
     dev_audio = args.libri2mix_dev
     test_audio = args.libri2mix_test
 
-    generate_training_pt(args.librispeech_train_100, args.librispeech_train_360)
+    generate_training_spk_dict(args.librispeech_train_100, args.librispeech_train_360)
 
     for t in ["aux_s1", "mix_clean", "s1"]:
         for d, n in [(dev_audio, "libri2mix_dev"), (test_audio, "libri2mix_test")]:
