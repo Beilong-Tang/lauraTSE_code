@@ -19,6 +19,7 @@ ac_output/
 sv_output/
 !evaluation/libri2mix_whisper_base.txt
 data/*.scp
+!ckpt/README.md
 
 
 ## pyrightconfig.json
