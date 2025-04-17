@@ -1,10 +1,9 @@
 # Experiment Config
 
-We have provided three configs:
+We have provided the librispeech dynamic mixing config:
 
-- Libri2mix Clean training set: `exp/libri2mix/config_log_mel_aux_5s.yaml`.
 - LibriSpeech Dynamic Mixing: `exp/librispeech/config_log_mel_aux_5s_e_100_patience.yaml`.
-- Libri2mix Finetune: `exp/libri2mix_finetune/config_log_mel_aux_5s_finetune_e_20.yaml`
+
 
 ## Key configs
 
@@ -14,42 +13,21 @@ In each config, please change the `FunCodec` part and `Data` part:
 - `codec_config_file`: path to the Funcodec model config _(*/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/config.yaml)_
 - `train_shape_file`: A list of one string, which is the path to the training shape scp file. E.x. `['/path/to/all_shape.scp']`
 - `valid_shape_file`: A list of one string, which is the path to the valid shape scp file. E.x. `['/path/to/all_shape.scp']`. 
-- `train_data_path_and_name_and_type`: If not using dynamic mixing, this field should be like 
+- `train_data_path_and_name_and_type`: 
 ```yaml
 train_data_path_and_name_and_type: [
     [
-        "<>", # training mix scp
-        "text", # DONT CHANGE
-        "mix_mel" # DONT CHANGE
-    ],
-    [
-        "<>", # training aux_s1 scp
-        "aux", # DONT CHANGE
-        "ref_mel" # DONT CHANGE
-    ],
-    [
-        "<>", # training target s1 codec scp (*/all.scp)
-        "codec", # DONT CHANGE
-        "npy" # DONT CHANGE
-    ]
-]
-```
-
-Otherwise, if using dynamic mixing:
-```yaml
-train_data_path_and_name_and_type: [
-    [
-        "<>", # Path to s1 target clean.scp
+        "<>", # Path to s1 target clean.scp (wav)
         "text", # DONT CHANGE
         "dm_mix" # DONT CHANGE
     ],
     [
-        "<>", # Path to s1 target clean.scp. Note that this is the same as above.
+        "<>", # Path to s1 target clean.scp. Note that this is the same as above. (wav)
         "aux", # DONT CHANGE
         "dm_ref" # DONT CHANGE
     ],
     [
-        "<>", # training target s1 codec scp (*/all.scp)
+        "<>", # training target s1 codec scp (*/all.scp) (codec)
         "codec", # DONT CHANGE
         "npy" # DONT CHANGE
     ]
@@ -59,12 +37,12 @@ train_data_path_and_name_and_type: [
 ```yaml
 valid_data_path_and_name_and_type: [
      [
-        "<>", # validation mix scp
+        "<>", # validation mix wav scp
         "text",
         "mix_mel"
     ],
     [
-        "<>", # validation aux_s1 scp
+        "<>", # validation aux_s1 wav scp
         "aux",
         "ref_mel"
     ],
