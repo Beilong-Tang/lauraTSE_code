@@ -101,4 +101,4 @@ Refer `evaluation/README.md`.
 
 # Troubleshoot
 
-Please let me know if there are any issues in running the script.
+If you encounter any errors and issues, please let me know by creating an issue! Thanks.
