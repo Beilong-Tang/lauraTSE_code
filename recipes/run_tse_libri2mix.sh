@@ -6,7 +6,6 @@
 name="libri2mix"
 config_path=exp/$name/config_log_mel_aux_5s.yaml
 resume=""
-export CUDA_VISIBLE_DEVICES="0,1,2,3"
 
 . utils/parse_options.sh
 

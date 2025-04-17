@@ -67,6 +67,7 @@ def parse_args():
 
 def main():
     args = parse_args()
+    args.scp_file = str(Path(args.scp_file).absolute())
     print(args.gpus)
     if args.normalize:
         print("Normalizing the output")
