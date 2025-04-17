@@ -15,7 +15,7 @@ To refer to our LauraTSE model, please see `src/model/laura_model_only_clean.py`
 Note that our experiments are run in `python3.10`.
 
 1. Install [FunCodec](https://github.com/modelscope/FunCodec) package.
-2. Install FunCodec [model](https://huggingface.co/alibaba-damo/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch). `audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch` is the model used in our experiments.
+2. Install FunCodec [model](https://huggingface.co/alibaba-damo/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch): `audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch`.
 3. Install the dependencies `pip install -r requirements.txt`.
 
 ## Data Preprocessing
