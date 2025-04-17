@@ -87,8 +87,10 @@ bash recipes/run_tse_libri2mix.sh
 bash recipes/run_tse_librispeech_dm.sh
 
 # Or 3. Libri2Mix Finetune
-bash recipes/run_tse_libri2mix_finetune.sh
+bash recipes/run_tse_libri2mix_finetune.sh --fine_tune <ckpt> 
 ```
+
+For finetune, you can use the provided model checkpoint. 
 
 ## Evaluation
 

@@ -4,10 +4,10 @@
 # Setting #
 ###########
 
-name="libri2mix"
-config_path=exp/$name/config_log_mel_aux_5s.yaml
+name="libri2mix_finetune"
+config_path=exp/$name/config_log_mel_aux_5s_finetune_e_20.yaml
 resume=""
-export CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7"
+export CUDA_VISIBLE_DEVICES="0,1,2,3"
 
 fine_tune="/DKUdata/tangbl/laura_TSE/ckpt/laura_tse_librispeech_dm_e_100.pth"
 
