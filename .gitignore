@@ -6,7 +6,6 @@ test*
 *.pt
 ckpt/*
 *.pt
-data/*
 *.log
 output/*
 !ckpt/.gitkeep
