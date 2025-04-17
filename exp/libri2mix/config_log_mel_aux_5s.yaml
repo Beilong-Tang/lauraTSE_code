@@ -2,11 +2,11 @@
 # FunCodec #
 ############
 
-init_param: ["/DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth:quantizer.rq.model:quantizer_codebook"]
-
 # For inference need
 codec_model_file: /DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth
 codec_config_file: /DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/config.yaml
+
+init_param: ["/DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth:quantizer.rq.model:quantizer_codebook"]
 
 ########
 # Data #
