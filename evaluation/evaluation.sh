@@ -85,6 +85,7 @@ fi
 if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
   # NISQA
   echo "[NISQA]"
+  output_dir=$(realpath "$output_dir")
   cur_dir=$(pwd)
   cd $nisqa_dir
   python run_predict.py --mode predict_dir --pretrained_model weights/nisqa.tar \
