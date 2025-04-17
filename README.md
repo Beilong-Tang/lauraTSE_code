@@ -70,8 +70,8 @@ Output audio will be output to `<output_dir>/wavs/*.wav`.
 
 ## Training
 
-TODO:
-- [ ] Add data processing and training config for libri2mix.
+__TODO__:
+- [ ] Add data processing and training config for libri2mix without dynamic mixing.
 
 All the training configs are put in `exp/`. We have provided the training config for librispeech dynamic mixing:
 
