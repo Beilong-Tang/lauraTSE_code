@@ -10,7 +10,7 @@ codec_config_file: <> # path to the Funcodec model file (*/audio_codec-encodec-z
 # Data #
 ########
 train_shape_file: ["<>"] # training shape scp 
-valid_shape_file: ["<>"] # training shape scp 
+valid_shape_file: ["<>"] # valid shape scp 
 train_data_path_and_name_and_type: [
     [
         "<>", # trainning mix scp
