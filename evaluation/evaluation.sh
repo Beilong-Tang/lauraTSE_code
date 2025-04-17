@@ -26,38 +26,35 @@ output_dir="output/test"
 num_proc=4
 gpus="cuda:4 cuda:5 cuda:6 cuda:7"
 
-. utils/parse_options.sh
-
-###########
-
-########
-# Eval #
-########
-mkdir -p $output_dir
-
-stage=4
-stop_stage=5
-
-# WER
-wer_model="base"
-wer_reference="evaluation/libri2mix_whisper_${wer_model}.txt"
-wer_num_proc=4
-
 # DNSMOS
 dns_model_dir="/DKUdata/tangbl/data/DNS-Challenge/DNSMOS"
 
-# NISQA
+# NISQA REPO
 nisqa_dir="/DKUdata/tangbl/pkg/evaluation/NISQA"
 
 # Libri2mix Clean Dir
 libri2mix_clean_dir="/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/test/s1"
 
+stage=1
+stop_stage=6
 
+. utils/parse_options.sh
 
+########
+# Eval #
+########
+
+# WER
+wer_model="base"
+wer_reference="evaluation/libri2mix_whisper_${wer_model}.txt"
+wer_num_proc=$num_proc
+
+####
+
+# WER
 if [ ${stage} -le 1 ] && [ ${stop_stage} -ge 1 ]; then
   ## WER 
   echo "[WER $wer_model]"
-  ## TODO: Change WER TO Large After downloading
   echo "Preparing Models"
   python -c "import whisper; whisper.load_model('${wer_model}')"
   echo "Model preparation done"
@@ -65,26 +62,25 @@ if [ ${stage} -le 1 ] && [ ${stop_stage} -ge 1 ]; then
     -o "$output_dir"/transcript_"$wer_model".txt -m $wer_model --num_proc $wer_num_proc
 fi 
 
-
+# Wespeaker Similarity
 if [ ${stage} -le 2 ] && [ ${stop_stage} -ge 2 ]; then
+  # SPK SIM
+  echo "[SPKSIM WeSpeaker]"
+  python src/eval/wespeaker_eval.py -t "$output_dir/wavs" \
+    -r $libri2mix_clean_dir -o "$output_dir/wespeaker.csv" 
+fi
 
-  # # SPK SIM
-  # echo "[SPKSIM WeSpeaker]"
-  # python src/eval/wespeaker_eval.py -t "$output_dir/wavs" \
-  #   -r $libri2mix_clean_dir -o "$output_dir/wespeaker.csv" 
-
-  echo "[Evaluation]"
-  # DNSMOS
+if [ ${stage} -le 3 ] && [ ${stop_stage} -ge 3 ]; then
   echo "[DNSMOS 16k]"
   python src/eval/dnsmos.py --model_dir $dns_model_dir -t "$output_dir/wavs" -o "$output_dir/dnsmos.csv"
-fi
+fi 
 
 
 #################################
 # NISQA, SpeechBert, wavlm_base #
 #################################
 
-if [ ${stage} -le 3 ] && [ ${stop_stage} -ge 3 ]; then
+if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
   # NISQA
   echo "[NISQA]"
   cur_dir=$(pwd)
@@ -98,7 +94,7 @@ if [ ${stage} -le 3 ] && [ ${stop_stage} -ge 3 ]; then
   python recipes_eval/nisqa_merge.py --output_dir $output_dir
 fi
 
-if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
+if [ ${stage} -le 5 ] && [ ${stop_stage} -ge 5 ]; then
   # SpeechBert
   echo "[SpeechBert]"
   python src/eval/speech_bert.py --test_dir "$output_dir/wavs" \
@@ -106,7 +102,7 @@ if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
 fi
 
 
-if [ ${stage} -le 5 ] && [ ${stop_stage} -ge 5 ]; then
+if [ ${stage} -le 6 ] && [ ${stop_stage} -ge 6 ]; then
   # WavLM Base Plus SV SpkSim
   echo "[WavLM Base Plus SV SpkSim]"
   python src/eval/wavlm_base_plus_sv_spksim_eval.py --test_dir "$output_dir/wavs" \
