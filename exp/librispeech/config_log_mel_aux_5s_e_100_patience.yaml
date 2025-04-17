@@ -11,21 +11,21 @@ codec_config_file: <> # path to the Funcodec model file (*/audio_codec-encodec-z
 # Data #
 ########
 spk_dict: data/dump/wavs/list/librispeech_train/train_100_360_spk_dict.pkl # Path to pickle object of speaker dictionary
-train_shape_file: ["data/dump/funcodec/librispeech/dev/all_shape.scp"] # training shape scp 
+train_shape_file: ["data/dump/funcodec/librispeech/train/all_shape.scp"] # training shape scp 
 valid_shape_file: ["data/dump/funcodec/libri2mix/dev/all_shape.scp"]
 train_data_path_and_name_and_type: [
     [
-        "<>", # Path to s1 target clean.scp
+        "data/dump/wavs/list/librispeech_train/train_100_360_clean.scp", # Path to s1 target clean.scp
         "text", # DONT CHANGE
         "dm_mix" # DONT CHANGE
     ],
     [
-        "<>", # Path to s1 target clean.scp. Note that this is the same as above.
+        "data/dump/wavs/list/librispeech_train/train_100_360_clean.scp", # Path to s1 target clean.scp. Note that this is the same as above.
         "aux", # DONT CHANGE
         "dm_ref" # DONT CHANGE
     ],
     [
-        "<>", # training target s1 codec scp (*/all.scp)
+        "data/dump/funcodec/librispeech/train/all.scp", # training target s1 codec scp (*/all.scp)
         "codec", # DONT CHANGE
         "npy" # DONT CHANGE
     ]
