@@ -20,7 +20,7 @@ Note that our experiments are run in `python3.10`.
 
 ## Data Preprocessing
 
-!TODO!
+Refer to `data/README.md`. 
 
 ## Checkpoints
 
@@ -89,3 +89,7 @@ bash recipes/run_tse_librispeech_dm.sh
 # Or 3. Libri2Mix Finetune
 bash recipes/run_tse_libri2mix_finetune.sh
 ```
+
+## Evaluation
+
+Refer `evaluation/README.md`. 
