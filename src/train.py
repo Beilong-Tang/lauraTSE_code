@@ -171,6 +171,7 @@ if __name__ == "__main__":
             config = yaml.safe_load(file)
         for k, v in config.items():
             args.__setattr__(k, v)
+    args.init_param = [f"{args.codec_model_file}:quantizer.rq.model:quantizer_codebook"]
     ###################
     ## Running Slurm ##
     ###################

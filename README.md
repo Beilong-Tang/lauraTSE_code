@@ -49,7 +49,7 @@ model_ckpt="<Path to model ckpt>"
 codec_model_file="<Path to Funcodec model ckpt>"
 codec_config_file="<Path to Funcodec model yaml>"
 
-# Output dir. Audio output will be in output/wavs.
+# Output dir. Audio output will be <output_dir>/wavs/*.wav.
 output_dir="<Path to output>"
 
 # DDP #
@@ -79,7 +79,7 @@ All the training configs are put in `exp/`. We have provided three training conf
 - Libri2mix Finetune: `exp/libri2mix_finetune/config_log_mel_aux_5s_finetune_e_20.yaml`
 
 To train the model:
-1. Change the fields in the config.
+1. Change the fields in the config. See `exp/README.md`
 2. Run one of the following scripts corresponding to the config:
 ```sh
 # 1. Libri2mix Clean
@@ -95,7 +95,7 @@ export CUDA_VISIBLE_DEVICES="0,1,2,3"
 bash recipes/run_tse_libri2mix_finetune.sh --fine_tune <ckpt> 
 ```
 
-For finetune, you can use the provided model [checkpoint](https://huggingface.co/Beilong/LauraTSE).. 
+For finetune, you can use the provided model [checkpoint](https://huggingface.co/Beilong/LauraTSE).
 
 ## Evaluation
 
