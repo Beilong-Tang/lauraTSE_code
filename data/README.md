@@ -55,7 +55,7 @@ You list folder will look like:
 │   ├── mix_clean.scp
 │   └── s1.scp
 └── train
-    ├── train_100_360_clean.sc
+    ├── train_100_360_clean.scp
     └── train_100_360_spk_dict.pkl # Dict[str, list[str]] mapping a speaker to all its utterances
 ```
 

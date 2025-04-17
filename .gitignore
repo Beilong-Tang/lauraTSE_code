@@ -22,6 +22,7 @@ data/*.scp
 !ckpt/README.md
 data/LibriMix/
 *.npy
+!data/libri2mix_100_360_aux_s1.txt
 
 
 ## pyrightconfig.json
