@@ -79,12 +79,9 @@ The output codec scp will be `dump/funcodec/libri2mix/*/all.scp`, and the output
 ### LibriSpeech
 
 ```sh
-# Codec output file
-output_dir=
 # FunCodec ckpt and config
 codec_model_file="<Path to Funcodec model ckpt>"
 codec_config_file="<Path to Funcodec model yaml>"
 
-bash export_librispeech_funcodec_normalize --output_dir <output_dir> \
-  --codec_model_file 
+bash export_librispeech_funcodec_normalize.sh --codec_model_file $codec_model_file --codec_config_file $codec_config_file
 ```
