@@ -9,33 +9,21 @@ set -o pipefail
 # Setting #
 ###########
 
-# In scp file, each line is "uid path"
-mix_wav_scp="/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/test/mix.scp"
-ref_wav_scp="/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/test/aux_s1.scp"
-
-# LauraTSE config and ckpt
-config_path="/DKUdata/tangbl/laura_TSE/ckpt/config_log_mel_aux_5s_finetune_librispeech_epoch_100.yaml"
-model_ckpt="/DKUdata/tangbl/laura_TSE/ckpt/laura_tse_librispeech_dm_e_100.pth"
-
-# FunCodec ckpt and config
-codec_model_file="/DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth"
-codec_config_file="/DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/config.yaml"
-
 # output path (<output_dir>/wavs/*.wav) SEE README
-output_dir="output/test"
+output_dir=
 
 # DDP #
 num_proc=4
 gpus="cuda:4 cuda:5 cuda:6 cuda:7"
 
 # DNSMOS PATH (../DNS-Challenge/DNSMOS)
-dns_model_dir="/DKUdata/tangbl/data/DNS-Challenge/DNSMOS"
+dns_model_dir=
 
 # NISQA REPO PATH
-nisqa_dir="/DKUdata/tangbl/pkg/evaluation/NISQA"
+nisqa_dir=
 
-# Libri2mix test s1 dir
-libri2mix_clean_dir="/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/test/s1"
+# test target wav dir
+clean_dir=
 
 stage=1
 stop_stage=6
@@ -69,7 +57,7 @@ if [ ${stage} -le 2 ] && [ ${stop_stage} -ge 2 ]; then
   # SPK SIM
   echo "[SPKSIM WeSpeaker]"
   python src/eval/wespeaker_eval.py -t "$output_dir/wavs" \
-    -r $libri2mix_clean_dir -o "$output_dir/wespeaker.csv" 
+    -r $clean_dir -o "$output_dir/wespeaker.csv" 
 fi
 
 if [ ${stage} -le 3 ] && [ ${stop_stage} -ge 3 ]; then
@@ -101,7 +89,7 @@ if [ ${stage} -le 5 ] && [ ${stop_stage} -ge 5 ]; then
   # SpeechBert
   echo "[SpeechBert]"
   python src/eval/speech_bert.py --test_dir "$output_dir/wavs" \
-  --ref_dir "$libri2mix_clean_dir" --out_dir "$output_dir"
+  --ref_dir "$clean_dir" --out_dir "$output_dir"
 fi
 
 
@@ -109,7 +97,7 @@ if [ ${stage} -le 6 ] && [ ${stop_stage} -ge 6 ]; then
   # WavLM Base Plus SV SpkSim
   echo "[WavLM Base Plus SV SpkSim]"
   python src/eval/wavlm_base_plus_sv_spksim_eval.py --test_dir "$output_dir/wavs" \
-  --ref_dir "$libri2mix_clean_dir" --out_dir "$output_dir"
+  --ref_dir "$clean_dir" --out_dir "$output_dir"
 fi
 
 

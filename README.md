@@ -54,7 +54,7 @@ output_dir="<Path to output>"
 
 # DDP #
 num_proc=4 # How many processes to run in parallel
-gpus="cuda:1 cuda:2 cuda:3 cuda:4" # Available GPUs
+gpus="cuda:0 cuda:1 cuda:2 cuda:3" # Available GPUs
 
 bash recipes/inference.sh --mix_wav_scp $mix_wav_scp \
  --ref_wav_scp $ref_wav_scp \
@@ -62,7 +62,9 @@ bash recipes/inference.sh --mix_wav_scp $mix_wav_scp \
  --model_ckpt $model_ckpt \
  --codec_model_file $codec_model_file \
  --codec_config_file $codec_config_file \
- --output_dir $output_dir
+ --output_dir $output_dir \
+ --num_proc $num_proc \
+ --gpus $gpus
 ```
 
 Output audio will be output to `<output_dir>/wavs/*.wav`.
@@ -81,12 +83,15 @@ To train the model:
 2. Run one of the following scripts corresponding to the config:
 ```sh
 # 1. Libri2mix Clean
+export CUDA_VISIBLE_DEVICES="0,1,2,3"
 bash recipes/run_tse_libri2mix.sh
 
 # Or 2. Librispeech Dynamic Mxing
+export CUDA_VISIBLE_DEVICES="0,1,2,3"
 bash recipes/run_tse_librispeech_dm.sh
 
 # Or 3. Libri2Mix Finetune
+export CUDA_VISIBLE_DEVICES="0,1,2,3"
 bash recipes/run_tse_libri2mix_finetune.sh --fine_tune <ckpt> 
 ```
 

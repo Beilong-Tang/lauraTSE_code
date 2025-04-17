@@ -41,7 +41,26 @@ After the evaluation is done, the log file will be output to `output/` folder.
 1. Modify the setting part in `evaluation.sh`
 2. Run
 ```sh
-## In the root directory.
-bash evaluation/evaluation.sh
+# output path (<output_dir>/wavs/*.wav) SEE README
+output_dir="<Path to output>"
+
+# DDP #
+num_proc=4
+gpus="cuda:0 cuda:1 cuda:2 cuda:3"
+
+# DNSMOS PATH (../DNS-Challenge/DNSMOS)
+dns_model_dir="<PATH to DNSMOS (../DNS-Challenge/DNSMOS)>"
+
+# NISQA REPO PATH
+nisqa_dir="<NISQA Repo Path>"
+
+# test target wav dir (the audio wav names have to match the output wav)
+clean_dir="<Path to the target clean wav dir>"
+
+# in the root directory
+bash evaluation/evaluation.sh --output_dir $output_dir \
+  --num_proc $num_proc --gpus $gpus \
+  --dns_model_dir $dns_model_dir --nisqa_dir $nisqa_dir \
+  --clean_dir $clean_dir
 ```
 
