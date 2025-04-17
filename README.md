@@ -70,6 +70,9 @@ Output audio will be output to `<output_dir>/wavs/*.wav`.
 
 ## Training
 
+TODO:
+- [ ] Add data processing and training config for libri2mix.
+
 All the training configs are put in `exp/`. We have provided the training config for librispeech dynamic mixing:
 
 - LibriSpeech Dynamic Mixing: `exp/librispeech/config_log_mel_aux_5s_e_100_patience.yaml`.
