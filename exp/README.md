@@ -28,7 +28,7 @@ train_data_path_and_name_and_type: [
         "ref_mel" # DONT CHANGE
     ],
     [
-        "<>", # training target s1 codec scp
+        "<>", # training target s1 codec scp (*/all.scp)
         "codec", # DONT CHANGE
         "npy" # DONT CHANGE
     ]
@@ -49,7 +49,7 @@ train_data_path_and_name_and_type: [
         "dm_ref" # DONT CHANGE
     ],
     [
-        "<>", # training target s1 codec scp
+        "<>", # training target s1 codec scp (*/all.scp)
         "codec", # DONT CHANGE
         "npy" # DONT CHANGE
     ]
