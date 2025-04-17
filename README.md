@@ -50,7 +50,8 @@ model_ckpt="<Path to model ckpt>"
 codec_model_file="<Path to Funcodec model ckpt>"
 codec_config_file="<Path to Funcodec model yaml>"
 
-output_dir="output/test"
+# Output dir, audio output will be in output/wavs
+output_dir="<Path to output>"
 
 # DDP #
 num_proc=4 # How many processes to run in parallel
