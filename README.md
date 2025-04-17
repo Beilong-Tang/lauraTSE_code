@@ -70,30 +70,17 @@ Output audio will be output to `<output_dir>/wavs/*.wav`.
 
 ## Training
 
-All the training configs are put in `exp/`. We have provided three training configs:
+All the training configs are put in `exp/`. We have provided the training config for librispeech dynamic mixing:
 
-- Libri2mix Clean training set: `exp/libri2mix/config_log_mel_aux_5s.yaml`.
 - LibriSpeech Dynamic Mixing: `exp/librispeech/config_log_mel_aux_5s_e_100_patience.yaml`.
-- Libri2mix Finetune: `exp/libri2mix_finetune/config_log_mel_aux_5s_finetune_e_20.yaml`
 
 To train the model:
 1. Change the fields in the config. See `exp/README.md`
 2. Run one of the following scripts corresponding to the config:
 ```sh
-# 1. Libri2mix Clean
-export CUDA_VISIBLE_DEVICES="0,1,2,3"
-bash recipes/run_tse_libri2mix.sh
-
-# Or 2. Librispeech Dynamic Mxing
 export CUDA_VISIBLE_DEVICES="0,1,2,3"
 bash recipes/run_tse_librispeech_dm.sh
-
-# Or 3. Libri2Mix Finetune
-export CUDA_VISIBLE_DEVICES="0,1,2,3"
-bash recipes/run_tse_libri2mix_finetune.sh --fine_tune <ckpt> 
 ```
-
-For finetune, you can use the provided model [checkpoint](https://huggingface.co/Beilong/LauraTSE).
 
 ## Evaluation
 
