@@ -2,88 +2,68 @@
 
 We provide our data processing for LibriSpeech and Libri2Mix.
 
-## Libri2Mix
+## Training Data
 
-1. First clone the repo:
-```bash
-git clone https://github.com/JorisCos/LibriMix
-cd LibriMix 
+We use train-clean-100, and train-clean-360 of LibriSpeech for training. The data is available at https://www.openslr.org/12.
+
+## Evaluation and Test data
+
+For evaluation and testing, our reference speech is randomly selected. 
+To enhance reproducibility and lower the complexity to generate the data, we directly upload
+our data to huggingface:
+
+`libri2mix_dev`: https://huggingface.co/datasets/Beilong/libri2mix_clean_target/resolve/main/libri2mix_dev.tar.gz?download=true
+
+
+`libri2mix_test`: https://huggingface.co/datasets/Beilong/libri2mix_clean_target/resolve/main/libri2mix_test.tar.gz?download=true
+
+After downloading and extracting, you get `libri2mix_dev` and `libri2mix_test` where each 
+folder has:
+- s1: the clean speech for target speaker
+- aux_s1: reference speech for s1
+- mix_clean: the mixture. 
+
+
+## SCP generation
+
+Make sure you have all the data following the [Data Preparation](#data-preparation) step. 
+
+Create an output folder which does not have subfoler `list` in it.
+
+Run
 ```
-2. Since we dont need noise, we can change the `generate_librimix.sh` to be
-```bash
-#!/bin/bash
-set -eu  # Exit on error
-
-storage_dir=$1
-librispeech_dir=$storage_dir/LibriSpeech
-librimix_outdir=$storage_dir/
-
-function LibriSpeech_dev_clean() {
-	if ! test -e $librispeech_dir/dev-clean; then
-		echo "Download LibriSpeech/dev-clean into $storage_dir"
-		# If downloading stalls for more than 20s, relaunch from previous state.
-		wget -c --tries=0 --read-timeout=20 http://www.openslr.org/resources/12/dev-clean.tar.gz -P $storage_dir
-		tar -xzf $storage_dir/dev-clean.tar.gz -C $storage_dir
-		rm -rf $storage_dir/dev-clean.tar.gz
-	fi
-}
-
-function LibriSpeech_test_clean() {
-	if ! test -e $librispeech_dir/test-clean; then
-		echo "Download LibriSpeech/test-clean into $storage_dir"
-		# If downloading stalls for more than 20s, relaunch from previous state.
-		wget -c --tries=0 --read-timeout=20 http://www.openslr.org/resources/12/test-clean.tar.gz -P $storage_dir
-		tar -xzf $storage_dir/test-clean.tar.gz -C $storage_dir
-		rm -rf $storage_dir/test-clean.tar.gz
-	fi
-}
-
-function LibriSpeech_clean100() {
-	if ! test -e $librispeech_dir/train-clean-100; then
-		echo "Download LibriSpeech/train-clean-100 into $storage_dir"
-		# If downloading stalls for more than 20s, relaunch from previous state.
-		wget -c --tries=0 --read-timeout=20 http://www.openslr.org/resources/12/train-clean-100.tar.gz -P $storage_dir
-		tar -xzf $storage_dir/train-clean-100.tar.gz -C $storage_dir
-		rm -rf $storage_dir/train-clean-100.tar.gz
-	fi
-}
-
-function LibriSpeech_clean360() {
-	if ! test -e $librispeech_dir/train-clean-360; then
-		echo "Download LibriSpeech/train-clean-360 into $storage_dir"
-		# If downloading stalls for more than 20s, relaunch from previous state.
-		wget -c --tries=0 --read-timeout=20 http://www.openslr.org/resources/12/train-clean-360.tar.gz -P $storage_dir
-		tar -xzf $storage_dir/train-clean-360.tar.gz -C $storage_dir
-		rm -rf $storage_dir/train-clean-360.tar.gz
-	fi
-}
-
-LibriSpeech_dev_clean &
-LibriSpeech_test_clean &
-LibriSpeech_clean100 &
-LibriSpeech_clean360 &
-# wham &
-
-wait
-
-# Path to python
-python_path=python
-
-# If you wish to rerun this script in the future please comment this line out.
-# $python_path scripts/augment_train_noise.py --wham_dir $wham_dir
-
-for n_src in 2; do
-  metadata_dir=metadata/Libri$n_src"Mix"
-  $python_path scripts/create_librimix_from_metadata.py --librispeech_dir $librispeech_dir \
-    --wham_dir $wham_dir \
-    --metadata_dir $metadata_dir \
-    --librimix_outdir $librimix_outdir \
-    --n_src $n_src \
-    --freqs 16k \
-    --modes min \
-    --types mix_clean
-done
+python generate_list.py --librispeech_train_100 <path_to_train-clean-100> \
+ --librispeech_train_360 <path_to_train-clean-360> \
+ --libri2mix_dev <path_to_libri2mix_dev> \
+ --libri2mix_test <path_to_libri2mix_test>
+ --output <path_to_output_folder>
 ```
 
-3. Find the folder of `test`, ``
+Scp files will be generated under the `list` folder of your output path.
+
+You list folder will look like:
+```
+.
+├── libri2mix_dev
+│   ├── aux_s1.scp 
+│   ├── mix_clean.scp
+│   └── s1.scp
+├── libri2mix_test
+│   ├── aux_s1.scp
+│   ├── mix_clean.scp
+│   └── s1.scp
+└── train
+    └── train_100_360.pt # Dict[str, list[str]] mapping a speaker to all its utterances
+```
+
+`train_100_360.pt` is nothing but a `Dict[str, list[str]]` which maps a 
+speaker to all its utterances. 
+
+For example, you can validate that
+```python
+spk_dict = torch.load("train_100_360.pt")
+for k, v in spk_dict.items()[:1]:
+    print(k) # the speaker name
+    print(v) # the speech utterances from this speaker
+```
 
