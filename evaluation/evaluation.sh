@@ -94,7 +94,7 @@ if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
   echo "NISQA inference finished"
   cd $cur_dir
   echo "NISQA Merging"
-  python recipes_eval/nisqa_merge.py --output_dir $output_dir
+  python utils/nisqa_merge.py --output_dir $output_dir
 fi
 
 if [ ${stage} -le 5 ] && [ ${stop_stage} -ge 5 ]; then
