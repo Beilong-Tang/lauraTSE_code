@@ -14,13 +14,15 @@ You can refer to `src/eval` for evaluation source code. More details can be foun
 
 ## Installation
 
-`pip install requirements.txt`
+1. Clone [NISQA](https://github.com/gabrielmittag/NISQA)
+2. Clone [DNSMOS](https://github.com/microsoft/DNS-Challenge)
+3. `pip install requirements.txt`
 
 ## Run 
 
 ### Pre-requisite
 
-The folder structure should be:
+The audio output folder structure should be:
 
 ```
 output/
