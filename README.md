@@ -50,7 +50,7 @@ model_ckpt="<Path to model ckpt>"
 codec_model_file="<Path to Funcodec model ckpt>"
 codec_config_file="<Path to Funcodec model yaml>"
 
-# Output dir, audio output will be in output/wavs
+# Output dir. Audio output will be in output/wavs.
 output_dir="<Path to output>"
 
 # DDP #
