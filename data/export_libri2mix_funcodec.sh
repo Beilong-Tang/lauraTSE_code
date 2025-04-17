@@ -13,10 +13,10 @@ out_dir=dump/funcodec/libri2mix
 ########
 # Data #
 ########
-scp_list=( "dump/wavs/list/libri2mix_dev/s1.scp" \
+scp_list=("dump/wavs/list/libri2mix_dev/s1.scp" \
           "dump/wavs/list/libri2mix_test/s1.scp" \
           "dump/wavs/list/libri2mix_train/s1.scp" )
-type=( "train")
+type=("dev" "test" "train")
 
 #######
 # DDP #
