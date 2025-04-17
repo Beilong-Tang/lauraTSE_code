@@ -102,4 +102,4 @@ Refer `evaluation/README.md`.
 
 # Troubleshoot
 
-Please let me know if there is issue running the script.
+Please let me know if there are any issues in running the script.
