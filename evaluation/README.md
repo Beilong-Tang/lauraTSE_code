@@ -32,7 +32,7 @@ output/
     ├── output3.wav
     └── ......
 ```
-The output folder only contains a `wavs` folder where the output wavs are put in. 
+The output folder only contains a `wavs` folder where the audio wavs are. 
 
 After the evaluation is done, the log file will be output to `output/` folder.
 
