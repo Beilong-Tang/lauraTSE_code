@@ -44,10 +44,9 @@ def match_files(path):
     matching_files = [f for f in os.listdir(os.path.dirname(path)) if pattern.fullmatch(f)]
     return [os.path.join(os.path.dirname(path), f) for f in matching_files]
 
-# def rms_normalize(audio):
-#     rms = np.sqrt(np.mean(np.square(audio)))  # Calculate the RMS value
-#     normalized_audio = audio / rms  # Normalize audio to unit RMS
-#     return normalized_audio
+def normalize(audio):
+    max_value = np.max(np.abs(audio))
+    return audio * (1 / max_value)
 
 
 def parse_args():
@@ -57,6 +56,7 @@ def parse_args():
     p.add_argument('--config', type=str, required = True)
     p.add_argument('--model', type=str, required= True)
     p.add_argument('--output', type=str, required= True)
+    p.add_argument('--normalize',  action = "store_true")
     ##############
     # DDP config #
     ##############
@@ -67,6 +67,9 @@ def parse_args():
 
 def main():
     args = parse_args()
+    print(args.gpus)
+    if args.normalize:
+        print("Normalizing the output")
     os.makedirs(args.output, exist_ok= True)
     mp.spawn(run, args=(args,), nprocs=args.num_proc, join=True)
     merge_scp(args)
@@ -104,9 +107,10 @@ def run(rank, args):
             # load audio 
             audio, _sr = librosa.load(abs_path, sr = None) # [T]
             assert _sr == 16000
-            # audio = rms_normalize(audio) # Remove RMS normalization
+            if args.normalize:
+                audio = normalize(audio)
             audio = torch.from_numpy(audio)
-            audio = audio.to('cuda')
+            audio = audio.cuda()
             audio = audio.unsqueeze(0).unsqueeze(0) # [1,1,T]
 
             # modeling
@@ -127,9 +131,6 @@ def run(rank, args):
 
             codes_len = codes.size(0)
             shape_file.write(f"{n} {codes_len}\n")
-    shape_file.close()
-    shape_file.close()
-    torch.cuda.empty_cache()
 
 def _get(files)-> List[str]:
     res = []

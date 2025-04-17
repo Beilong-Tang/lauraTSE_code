@@ -1,6 +1,8 @@
 # Data
 
-We provide our data processing for LibriSpeech and Libri2Mix.
+We provide our data processing for dynamic mixing for LibriSpeech and evaluation on Libri2Mix. 
+
+For Libri2Mix training generation, I am still working on it. 
 
 ## Training Data
 
