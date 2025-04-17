@@ -55,7 +55,27 @@ train_data_path_and_name_and_type: [
     ]
 ]
 ```
-- spk_dict: (Used in Dynamic Mixing) Path to a pickle file containing a dictionary where each key is a speaker UID and each value is a list of audio paths corresponding to that speaker, used for training.
+- `valid_data_path_and_name_and_type`: 
+```yaml
+valid_data_path_and_name_and_type: [
+     [
+        "<>", # validation mix scp
+        "text",
+        "mix_mel"
+    ],
+    [
+        "<>", # validation aux_s1 scp
+        "aux",
+        "ref_mel"
+    ],
+    [
+        "<>", # validation s1 codec scp
+        "codec",
+        "npy"
+    ]
+]
+```
+- `spk_dict`: (Used in Dynamic Mixing) Path to a pickle file containing a dictionary where each key is a speaker UID and each value is a list of audio paths corresponding to that speaker, used for training.
 
 ## Configs about batch size
 

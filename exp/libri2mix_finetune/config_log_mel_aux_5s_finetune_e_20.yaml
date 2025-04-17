@@ -2,49 +2,46 @@
 # FunCodec #
 ############
 
-init_param: ["/DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth:quantizer.rq.model:quantizer_codebook"]
-
 # For inference need
-codec_model_file: /DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth
-codec_config_file: /DKUdata/tangbl/FunCodec/egs/LibriTTS/codec/exp/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/config.yaml
+codec_model_file: <> # path to the Funcodec model ckpt (*/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth)
+codec_config_file: <> # path to the Funcodec model file (*/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/config.yaml)
 
 ########
 # Data #
 ########
-
-train_shape_file: ["/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/train/all_shape.scp"]
-valid_shape_file: ["/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/dev/all_shape.scp"]
+train_shape_file: ["<>"] # training shape scp 
+valid_shape_file: ["<>"] # valid shape scp 
 train_data_path_and_name_and_type: [
     [
-        "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/train/all/mix.scp",
-        "text",
-        "mix_mel"
+        "<>", # trainning mix scp
+        "text", # DONT CHANGE
+        "mix_mel" # DONT CHANGE
     ],
     [
-        "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/train/all/aux_s1.scp",
-        "aux",
-        "ref_mel"
+        "<>", # aux_s1 scp
+        "aux", # DONT CHANGE
+        "ref_mel" # DONT CHANGE
     ],
     [
-        "/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/train/all.scp",
-        "codec",
-        "npy"
+        "<>", # target s1 codec scp
+        "codec", # DONT CHANGE
+        "npy" # DONT CHANGE
     ]
 ]
 
 valid_data_path_and_name_and_type: [
      [
-        "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/dev/mix.scp",
+        "<>", # validation mix scp
         "text",
         "mix_mel"
     ],
     [
-        "/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/dev/aux_s1.scp",
+        "<>", # validation aux_s1 scp
         "aux",
         "ref_mel"
     ],
     [
-        "/DKUdata/tangbl/laura_gpt_se/libri2mix_tse_data_funcodec/s1/dev/all.scp",
+        "<>", # validation s1 codec scp
         "codec",
         "npy"
     ]
