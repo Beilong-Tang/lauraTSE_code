@@ -77,7 +77,6 @@ All the training configs are put in `exp/`. We have provided three training conf
 - Libri2mix Finetune: `exp/libri2mix_finetune/config_log_mel_aux_5s_finetune_e_20.yaml`
 
 To train the model:
-
 1. Change the fields in the config.
 2. Run one of the following scripts corresponding to the config:
 ```sh
