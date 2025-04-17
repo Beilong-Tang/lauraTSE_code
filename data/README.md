@@ -1,12 +1,12 @@
 # Data
 
-We provide our data processing for dynamic mixing for LibriSpeech and evaluation on Libri2Mix. 
-
-For Libri2Mix training generation, I am still working on it. 
 
 ## Training Data
 
 We use train-clean-100, and train-clean-360 of LibriSpeech for training. The data is available at https://www.openslr.org/12.
+
+We also use libri2mix without dynamic mixing as training data. Please refer to [libri2mix](https://github.com/JorisCos/LibriMix) to prepare the data. Note that we only need generate `mix_clean`, `n_src=2`, `freqs=16k`, `modes=min`.
+
 
 ## Evaluation and Test data
 
@@ -38,6 +38,8 @@ python generate_list.py --librispeech_train_100 <path_to_train-clean-100> \
  --librispeech_train_360 <path_to_train-clean-360> \
  --libri2mix_dev <path_to_libri2mix_dev> \
  --libri2mix_test <path_to_libri2mix_test> \
+ --libri2mix_train_clean_360 <path_to_libri2mix_train_clean_360> \
+ --libri2mix_train_clean_100 <path_to_libri2mix_train_clean_100> \
  --output dump/wavs/
 ```
 
@@ -45,7 +47,8 @@ Scp files will be generated under the `list` folder of your output path.
 
 You list folder will look like:
 ```
-.
+dump/wavs/list
+│
 ├── libri2mix_dev
 │   ├── aux_s1.scp 
 │   ├── mix_clean.scp
@@ -54,9 +57,13 @@ You list folder will look like:
 │   ├── aux_s1.scp
 │   ├── mix_clean.scp
 │   └── s1.scp
-└── librispeech_train
-    ├── train_100_360_clean.scp
-    └── train_100_360_spk_dict.pkl # Dict[str, list[str]] mapping a speaker to all its utterances
+├── librispeech_train
+│   ├── train_100_360_clean.scp
+│   └── train_100_360_spk_dict.pkl # Dict[str, list[str]] mapping a speaker to all its utterances
+└── libri2mix_train
+    ├── aux_s1.scp
+    ├── mix_clean.scp
+    └── s1.scp
 ```
 
 `train_100_360_spk_dict.pkl` is nothing but a `Dict[str, list[str]]` which maps a 

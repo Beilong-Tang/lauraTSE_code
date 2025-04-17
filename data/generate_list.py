@@ -48,7 +48,7 @@ def generate_scp(dataset_name: str, type: str, name: str):
             f.write(r)
     print("done")
 
-def generate_libri2mix_train(lm_100, lm_360, lm_aux, ls_spk_dict):
+def generate_libri2mix_train(lm_100, lm_360, lm_aux):
     
     mix_path = glob.glob(str(Path(lm_100)/'mix_clean'/'*.wav'))
     mix_path +=  glob.glob(str(Path(lm_360)/'mix_clean'/'*.wav'))
@@ -60,11 +60,26 @@ def generate_libri2mix_train(lm_100, lm_360, lm_aux, ls_spk_dict):
     s1_path = glob.glob(str(Path(lm_100)/'s1'/'*.wav'))
     s1_path += glob.glob(str(Path(lm_360)/'s1'/'*.wav'))
 
-    res = [ f"{Path(p).stem} {p}\n" for p in mix_path]
+    res = [ f"{Path(p).stem} {p}\n" for p in s1_path]
     with open(p("list", "libri2mix_train", "s1.scp"), "w") as file:
         file.writelines(res)
 
     ## Generate lm_aux
+    ls_spk_dict = {}
+    with open(p("list", "librispeech_train", "train_100_360_clean.scp"), "r") as f:
+        for line in f.readlines():
+            uid, path = line.replace("\n","").split(' ')
+            ls_spk_dict[uid] = path
+    
+    aux_pair = []
+    with open(lm_aux, 'r') as f:
+        for line in f.readlines():
+            uid, aux_id = line.replace("\n", "").split(" ")
+            aux_path = ls_spk_dict[aux_id]
+            aux_pair.append(f"{uid} {aux_path}\n")
+    with open(p("list", "libri2mix_train", "aux_s1.scp"), "w") as file:
+        file.writelines(aux_pair)
+    
 
 
 
@@ -84,10 +99,10 @@ if __name__ == "__main__":
 
     BASE_PATH = args.output
 
-    if op.exists(p("list")):
-        raise FileExistsError(
-            "Please choose another folder that does not have folder 'list' as output folder."
-        )
+    # if op.exists(p("list")):
+    #     raise FileExistsError(
+    #         "Please choose another folder that does not have folder 'list' as output folder."
+    #     )
     os.makedirs(p("list"), exist_ok=True)
     os.makedirs(p("list", "librispeech_train"), exist_ok=True)
     os.makedirs(p("list", "libri2mix_dev"), exist_ok=True)
