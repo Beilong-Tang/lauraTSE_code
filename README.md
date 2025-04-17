@@ -54,7 +54,7 @@ output_dir="output/test"
 
 # DDP #
 num_proc=4 # How many processes to run in parallel
-gpus="cuda:4 cuda:5 cuda:6 cuda:7" # Available GPU numbers
+gpus="cuda:4 cuda:5 cuda:6 cuda:7" # Available GPUs
 
 bash recipes/inference.sh --mix_wav_scp $mix_wav_scp \
  --ref_wav_scp $ref_wav_scp \

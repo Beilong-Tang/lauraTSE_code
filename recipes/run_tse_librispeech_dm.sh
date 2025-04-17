@@ -24,4 +24,7 @@ log_path=log/$save_dir
 mkdir -p $ckpt_path
 mkdir -p $log_path
 
+###############
+## Run  DDP  ##
+###############
 python -u src/train.py --config $config_path --log $log_path --ckpt_path $ckpt_path --resume $resume
