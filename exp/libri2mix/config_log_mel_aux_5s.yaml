@@ -61,7 +61,7 @@ max_ckpt: 1
 log_interval: 10
 epoch: 50
 
-batch_bins: 16000 # for 4 gpu cards with 46Gb each. You can modify this based on your gpu bandwidth.
+batch_bins: 8000 # for 4 gpu cards with 46Gb each. You can modify this based on your gpu bandwidth.
 batch_size: 40 # Does not matter
 num_workers: 4
 
