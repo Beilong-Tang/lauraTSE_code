@@ -6,7 +6,9 @@
 :warning: This repository is under construction, and it now contains my personal code for operating on my server. But it should contain the key codes for building lauraTSE Model now.
 
 
-Official repository for [LauraTSE: Target Speaker Extraction using Auto-Regressive Decoder-Only Language Models](https://arxiv.org/abs/2504.07402) . 
+Official repository for [LauraTSE: Target Speaker Extraction using Auto-Regressive Decoder-Only Language Models](https://arxiv.org/abs/2504.07402).
+
+To refer to our LauraTSE model, please see `src/model/laura_model_only_clean.py`. It is adapted from `LauraGPT` from [FunCodec](https://github.com/modelscope/FunCodec). 
 
 ## Installation
 
@@ -62,3 +64,8 @@ bash recipes/inference.sh --mix_wav_scp $mix_wav_scp \
  --codec_config_file $codec_config_file \
  --output_dir $output_dir
 ```
+
+
+## Training
+
+All the training configs are put in `exp/`.
