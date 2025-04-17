@@ -11,7 +11,7 @@ from pathlib import Path
 
 def main(args):
     model = wespeaker.load_model(args.language)
-    model.set_gpu(args.device_id)
+    model.set_device(args.device_id)
     audio_path_list = sorted(glob.glob(op.join(args.test_file, "*.wav")))
     ref_path_list = sorted(glob.glob(op.join(args.reference_file, "*.wav")))
     print("total audio len: ", len(audio_path_list))
