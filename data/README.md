@@ -53,10 +53,12 @@ You list folder will look like:
 │   ├── mix_clean.scp
 │   └── s1.scp
 └── train
+    ├── train_100_360_clean.sc
     └── train_100_360_spk_dict.pkl # Dict[str, list[str]] mapping a speaker to all its utterances
 ```
 
 `train_100_360_spk_dict.pkl` is nothing but a `Dict[str, list[str]]` which maps a 
 speaker to all its utterances. 
 
-## FunCodec generation
+## FunCodec Codec Generation
+
