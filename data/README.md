@@ -80,6 +80,8 @@ speaker to all its utterances.
 
 ```sh
 # FunCodec ckpt and config
+unset CUDA_VISIBLE_DEVICES
+
 codec_model_file="<Path to Funcodec model ckpt>"
 codec_config_file="<Path to Funcodec model yaml>"
 
@@ -91,6 +93,7 @@ The output codec scp will be `dump/funcodec/libri2mix/*/all.scp`, and the output
 ### LibriSpeech
 
 ```sh
+unset CUDA_VISIBLE_DEVICES
 # FunCodec ckpt and config
 codec_model_file="<Path to Funcodec model ckpt>"
 codec_config_file="<Path to Funcodec model yaml>"
