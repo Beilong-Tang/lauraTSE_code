@@ -98,3 +98,8 @@ For finetune, you can use the provided model [checkpoint](https://huggingface.co
 ## Evaluation
 
 Refer `evaluation/README.md`. 
+
+
+# Troubleshoot
+
+Please let me know if there is issue running the script.
