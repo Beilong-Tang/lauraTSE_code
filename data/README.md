@@ -35,7 +35,7 @@ Run
 python generate_list.py --librispeech_train_100 <path_to_train-clean-100> \
  --librispeech_train_360 <path_to_train-clean-360> \
  --libri2mix_dev <path_to_libri2mix_dev> \
- --libri2mix_test <path_to_libri2mix_test>
+ --libri2mix_test <path_to_libri2mix_test> \
  --output <path_to_output_folder>
 ```
 

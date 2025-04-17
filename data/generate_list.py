@@ -4,6 +4,7 @@ import glob
 import pickle
 import tqdm
 import argparse
+from pathlib import Path
 
 BASE_PATH = "."
 
@@ -26,13 +27,22 @@ def generate_training_spk_dict(train_100: str, train_360: str):
                 spk_dict[spk] = [a]
     with open(p("list", "train", "train_100_360_spk_dict.pkl"), "wb") as f:
         pickle.dump(spk_dict, f)
+    
+    ## Generate the speaker scp
+    res = []
+    for _, values in spk_dict.items():
+        for path in values:
+            name = Path(path).stem
+            res.append(f"{name} {path}\n")
+    with open(p("list", "train", "train_100_360_clean.scp"), "w") as f:
+        f.writelines(res)
     print("done!")
 
 
 def generate_scp(dataset_name: str, type: str, name: str):
     print(f"generating scp for {name} of type {type}")
     files = sorted(glob.glob(p(dataset_name, type, "*.wav")))
-    res = [f"{i.split('/')[-1]} {i}\n" for i in files]
+    res = [f"{Path(i).stem} {i}\n" for i in files]
     with open(p("list", name, f"{type}.scp"), "w") as f:
         for r in res:
             f.write(r)
