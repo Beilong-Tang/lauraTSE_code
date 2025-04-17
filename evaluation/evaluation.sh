@@ -8,6 +8,8 @@ set -o pipefail
 ###########
 # Setting #
 ###########
+
+# In scp file, each line is "uid path"
 mix_wav_scp="/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/test/mix.scp"
 ref_wav_scp="/Netdata/2021/zb/data/LibriMix/Libri2Mix/wav16k/min/lists/test/aux_s1.scp"
 
