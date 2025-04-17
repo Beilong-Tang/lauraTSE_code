@@ -22,7 +22,7 @@ type=("dev" "test" "train")
 # DDP #
 #######
 num_proc=8
-gpus="cuda:1 cuda:2 cuda:3 cuda:4"
+gpus="cuda:0 cuda:1 cuda:2 cuda:3"
 
 #########
 # Model #
