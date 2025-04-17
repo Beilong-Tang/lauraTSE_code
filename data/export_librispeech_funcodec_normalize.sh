@@ -8,12 +8,12 @@ set -o pipefail
 ###########
 # out dir #
 ###########
-out_dir=dump/funcodec
+out_dir=dump/funcodec/librispeech
 
 ########
 # Data #
 ########
-scp_list=("dump/list/train/train_100_360_clean.scp")
+scp_list=("dump/wavs/list/librispeech_train/train_100_360_clean.scp")
 type=("train")
 
 #######

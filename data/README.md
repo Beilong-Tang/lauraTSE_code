@@ -3,7 +3,11 @@
 
 ## Training Data
 
+### LibriSpeech
+
 We use train-clean-100, and train-clean-360 of LibriSpeech for training. The data is available at https://www.openslr.org/12.
+
+### Libri2Mix
 
 We also use libri2mix without dynamic mixing as training data. Please refer to [libri2mix](https://github.com/JorisCos/LibriMix) to prepare the data. Note that we only need generate `mix_clean`, `n_src=2`, `freqs=16k`, `modes=min`.
 
@@ -34,8 +38,8 @@ Create an output folder which does not have subfoler `list` in it.
 
 Run
 ```
-python generate_list.py --librispeech_train_100 <path_to_train-clean-100> \
- --librispeech_train_360 <path_to_train-clean-360> \
+python generate_list.py --librispeech_train_100 <path_to_librispeech_train-clean-100> \
+ --librispeech_train_360 <path_to_librispeech_train-clean-360> \
  --libri2mix_dev <path_to_libri2mix_dev> \
  --libri2mix_test <path_to_libri2mix_test> \
  --libri2mix_train_clean_360 <path_to_libri2mix_train_clean_360> \
@@ -43,9 +47,9 @@ python generate_list.py --librispeech_train_100 <path_to_train-clean-100> \
  --output dump/wavs/
 ```
 
-Scp files will be generated under the `list` folder of your output path.
+Scp files will be generated under the `dump` folder of your output path.
 
-You list folder will look like:
+You dump folder will look like:
 ```
 dump/wavs/list
 │
@@ -57,13 +61,14 @@ dump/wavs/list
 │   ├── aux_s1.scp
 │   ├── mix_clean.scp
 │   └── s1.scp
-├── librispeech_train
-│   ├── train_100_360_clean.scp
-│   └── train_100_360_spk_dict.pkl # Dict[str, list[str]] mapping a speaker to all its utterances
-└── libri2mix_train
-    ├── aux_s1.scp
-    ├── mix_clean.scp
-    └── s1.scp
+├── libri2mix_train
+│   ├── aux_s1.scp
+│   ├── mix_clean.scp
+│   └── s1.scp
+└── librispeech_train
+    ├── train_100_360_clean.scp
+    └── train_100_360_spk_dict.pkl # Dict[str, list[str]] mapping a speaker to all its utterances
+
 ```
 
 `train_100_360_spk_dict.pkl` is nothing but a `Dict[str, list[str]]` which maps a 
@@ -71,7 +76,7 @@ speaker to all its utterances.
 
 ## FunCodec Codec Generation
 
-### Libri2Mix Dev and Test
+### Libri2Mix
 
 ```sh
 # FunCodec ckpt and config

@@ -2,32 +2,31 @@
 # FunCodec #
 ############
 
-
 # For inference need
-codec_model_file: <> # path to the Funcodec model ckpt (*/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/model.pth)
-codec_config_file: <> # path to the Funcodec model file (*/audio_codec-encodec-zh_en-general-16k-nq32ds640-pytorch/config.yaml)
+codec_model_file: <>
+codec_config_file: <>
 
 ########
 # Data #
 ########
-spk_dict: data/dump/wavs/list/librispeech_train/train_100_360_spk_dict.pkl # Path to pickle object of speaker dictionary
-train_shape_file: ["data/dump/funcodec/librispeech/dev/all_shape.scp"] # training shape scp 
+
+train_shape_file: ["data/dump/funcodec/libri2mix/train/all_shape.scp"]
 valid_shape_file: ["data/dump/funcodec/libri2mix/dev/all_shape.scp"]
 train_data_path_and_name_and_type: [
     [
-        "<>", # Path to s1 target clean.scp
-        "text", # DONT CHANGE
-        "dm_mix" # DONT CHANGE
+        "data/dump/wavs/list/libri2mix_train/mix_clean.scp",
+        "text",
+        "mix_mel"
     ],
     [
-        "<>", # Path to s1 target clean.scp. Note that this is the same as above.
-        "aux", # DONT CHANGE
-        "dm_ref" # DONT CHANGE
+        "data/dump/wavs/list/libri2mix_train/aux_s1.scp",
+        "aux",
+        "ref_mel"
     ],
     [
-        "<>", # training target s1 codec scp (*/all.scp)
-        "codec", # DONT CHANGE
-        "npy" # DONT CHANGE
+        "data/dump/funcodec/libri2mix/train/all.scp",
+        "codec",
+        "npy"
     ]
 ]
 
@@ -61,26 +60,26 @@ best_field: loss
 best_save_type: descend
 max_ckpt: 1
 log_interval: 10
-epoch: 100
+epoch: 20
 
-batch_bins: 7680 # for 4 gpu cards with 46Gb each. You can modify this based on the gpu bandwidth.
-batch_size: 40 # This does not matter here
-num_workers: 8
+batch_bins: 8000 # for 8 gpu cards with 46Gb each. You can modify this based on your gpu bandwidth.
+batch_size: 40 # Does not matter
+num_workers: 4
 
 # Optimizer
 optim:
     type: Adam
     args:
-        lr: 1.0e-3
+        lr: 1.0e-4
 
 # Warmup Scheduler
 scheduler: warmuplr
 scheduler_conf:
     warmup_steps: 10000
 
-## patience scheduler
-patience:
-    epoch: 50 # the epoch to start patience scheduler
+# Patience scheduler
+# patience:
+#     epoch: 50 # the epoch to start patience scheduler
 
 grad_clip: 5
 seed: 1234
