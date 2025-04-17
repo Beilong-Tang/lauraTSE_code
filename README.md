@@ -8,7 +8,7 @@
 
 Official repository for [LauraTSE: Target Speaker Extraction using Auto-Regressive Decoder-Only Language Models](https://arxiv.org/abs/2504.07402).
 
-To refer to our LauraTSE model, please see `src/model/laura_model_only_clean.py`. It is adapted from `LauraGPT` from [FunCodec](https://github.com/modelscope/FunCodec). 
+To refer to our LauraTSE model, please see `src/model/laura_model_only_clean.py`. It is adapted from `LauraGPT` model from [FunCodec](https://github.com/modelscope/FunCodec). 
 
 ## Installation
 
@@ -35,7 +35,6 @@ Results on Libri2Mix clean testset:
 | LauraTSE | 3.609 | 4.084 | 3.336 | 4.333 |   0.908    | 0.159 |   0.974   |     0.876     |
 
 ## Inference
-
 
 ```sh
 # Input wavs
@@ -65,6 +64,8 @@ bash recipes/inference.sh --mix_wav_scp $mix_wav_scp \
  --codec_config_file $codec_config_file \
  --output_dir $output_dir
 ```
+
+Output audio will be output to `<output_dir>/wavs/*.wav`.
 
 
 ## Training
