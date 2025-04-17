@@ -90,7 +90,7 @@ bash recipes/run_tse_librispeech_dm.sh
 bash recipes/run_tse_libri2mix_finetune.sh --fine_tune <ckpt> 
 ```
 
-For finetune, you can use the provided model checkpoint. 
+For finetune, you can use the provided model [checkpoint](https://huggingface.co/Beilong/LauraTSE).. 
 
 ## Evaluation
 
