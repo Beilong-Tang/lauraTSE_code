@@ -21,6 +21,7 @@ sv_output/
 data/*.scp
 !ckpt/README.md
 data/LibriMix/
+*.npy
 
 
 ## pyrightconfig.json

@@ -38,7 +38,7 @@ python generate_list.py --librispeech_train_100 <path_to_train-clean-100> \
  --librispeech_train_360 <path_to_train-clean-360> \
  --libri2mix_dev <path_to_libri2mix_dev> \
  --libri2mix_test <path_to_libri2mix_test> \
- --output <path_to_output_folder>
+ --output dump/
 ```
 
 Scp files will be generated under the `list` folder of your output path.
@@ -64,3 +64,27 @@ speaker to all its utterances.
 
 ## FunCodec Codec Generation
 
+### Libri2Mix Dev and Test
+
+```sh
+# FunCodec ckpt and config
+codec_model_file="<Path to Funcodec model ckpt>"
+codec_config_file="<Path to Funcodec model yaml>"
+
+bash export_libri2mix_funcodec.sh --codec_model_file $codec_model_file --codec_config_file $codec_config_file
+```
+
+The output codec scp will be `dump/funcodec/libri2mix/*/all.scp`, and the output shape file will be `dump/funcodec/libri2mix/*/all_shape.scp`
+
+### LibriSpeech
+
+```sh
+# Codec output file
+output_dir=
+# FunCodec ckpt and config
+codec_model_file="<Path to Funcodec model ckpt>"
+codec_config_file="<Path to Funcodec model yaml>"
+
+bash export_librispeech_funcodec_normalize --output_dir <output_dir> \
+  --codec_model_file 
+```
