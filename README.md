@@ -70,7 +70,7 @@ bash recipes/inference.sh --mix_wav_scp $mix_wav_scp \
 
 All the training configs are put in `exp/`. We have provided three training configs:
 
-1. Libri2mix clean training set: `exp/libri2mix/config_log_mel_aux_5s.yaml`.
+1. Libri2mix Clean training set: `exp/libri2mix/config_log_mel_aux_5s.yaml`.
 2. LibriSpeech Dynamic Mixing: `exp/librispeech/config_log_mel_aux_5s_e_100_patience.yaml`.
 3. Libri2mix Finetune: `exp/libri2mix_finetune/config_log_mel_aux_5s_finetune_e_20.yaml`
 
