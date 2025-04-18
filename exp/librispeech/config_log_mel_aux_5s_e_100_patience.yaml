@@ -10,7 +10,7 @@ codec_config_file: <> # path to the Funcodec model file (*/audio_codec-encodec-z
 ########
 # Data #
 ########
-spk_dict: data/dump/wavs/list/librispeech_train/train_100_360_spk_dict.pkl # Path to pickle object of speaker dictionary
+spk_dict_path: data/dump/wavs/list/librispeech_train/train_100_360_spk_dict.pkl # Path to pickle object of speaker dictionary
 train_shape_file: ["data/dump/funcodec/librispeech/train/all_shape.scp"] # training shape scp 
 valid_shape_file: ["data/dump/funcodec/libri2mix/dev/all_shape.scp"]
 train_data_path_and_name_and_type: [
