@@ -114,7 +114,11 @@ def inference(rank, args):
 
             # 1. Inference
             start = time.time()
-            output = tse(mix_mel, ref_mel)[0]["gen"].squeeze()  # [T]
+            try:
+                output = tse(mix_mel, ref_mel)[0]["gen"].squeeze()  # [T]
+            except:
+                logger.error(f"Error when generating mixture: {mix_wav_path} and reference: {ref_wav_path}.")
+                continue
             rtf = (time.time() - start) / (len(output) / sr)
             pbar.set_postfix({"RTF": rtf})
             total_rtf += rtf
