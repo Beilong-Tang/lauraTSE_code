@@ -1,6 +1,6 @@
 # LauraTSE: Target Speaker Extraction using Auto-Regressive Decoder-Only Language Models
 
-<!-- [![Paper](https://img.shields.io/badge/Paper-red?&logo=arxiv)](https://arxiv.org/abs/2504.07402) 
+[![Paper](https://img.shields.io/badge/Paper-red?&logo=arxiv)](https://arxiv.org/abs/2504.07402) 
 [![Demo](https://img.shields.io/badge/Demo-green?&logo=youtube)](https://beilong-tang.github.io/lauraTSE.demo//)
 
 
