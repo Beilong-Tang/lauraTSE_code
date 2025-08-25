@@ -41,6 +41,15 @@ def parse_args():
     parser.add_argument(
         "--gpus", nargs="+", default=["cuda:0", "cuda:1", "cuda:2", "cuda:3"]
     )
+    parser.add_argument("-i", "--infer", choices=['offline', 'trunk',], default='offline', help= 
+                    """ 
+                    Inference methods type
+                    offline: Infer the whole audio at the same time
+                    trunk: splits the audio into multiple trunks with overlap 50\\%, and inference from there
+                    one: Output one frame of raw audio form at a time.
+                    """)
+    parser.add_argument("--hop_ds", type=int, default=2, help="Only useful when infer type is trunk. the Hop Size to move: default: 2 seconds")
+    args = parser.parse_args()
     args = parser.parse_args()
     return args
 
@@ -81,8 +90,6 @@ def inference(rank, args):
     # load model
     logger.info("loading model")
     tse = TSExtraction(args, args.model_ckpt, device, logger)
-    # mel spec
-    mel_spec = MelSpec(**args.mel_config)
 
     # Inference
     total_rtf = 0.0
@@ -91,30 +98,18 @@ def inference(rank, args):
             mix_wav_path, ref_wav_path = paths
 
             # 0. Mix Mel -> [1, T,]
-            audio, sr = torchaudio.load(mix_wav_path)  # [1,T]
-            mask = torch.tensor([audio.size(1)], dtype=torch.long)
-            mix_mel, _ = mel_spec.mel(audio, mask)
-            mix_mel = mix_mel.to(device)
+            mix_audio, sr = torchaudio.load(mix_wav_path)  # [1,T]
+            mix_audio = mix_audio.to(device)
 
             # 1. Ref Mel -> [1,T,D]
-            audio, sr = torchaudio.load(ref_wav_path)  # [1,T]
-            if args.max_aux_ds is not None:
-                audio = audio[:, -int(args.max_aux_ds * 16000):]
-            mask = torch.tensor([audio.size(1)], dtype=torch.long)
-            ref_mel, _ = mel_spec.mel(audio, mask)
-            ref_mel = ref_mel.to(device)
-            ## Limit the reference mel length
-
-            # # 2. Ref Codec ->
-            # ref_codec = np.load(ref_codec_path) # [T,N]
-            # ref_codec = torch.from_numpy(ref_codec).to(torch.long)# [T,N]
-            # ## Limit the reference mel length
+            ref_audio, sr = torchaudio.load(ref_wav_path)  # [1,T]
             # if args.max_aux_ds is not None:
-            #     ref_codec = ref_codec[-int(args.max_aux_ds * args.codec_token_rate):]
-
+            #     ref_audio = ref_audio[:, -int(args.max_aux_ds * 16000):]
+            ref_audio = ref_audio.to(device)
+            
             # 1. Inference
             start = time.time()
-            output = tse(mix_mel, ref_mel)[0]["gen"].squeeze()  # [T]
+            output = tse(mix_audio, ref_audio)[0]["gen"].squeeze()  # [T]
             rtf = (time.time() - start) / (len(output) / sr)
             pbar.set_postfix({"RTF": rtf})
             total_rtf += rtf
@@ -125,7 +120,7 @@ def inference(rank, args):
 
             sf.write(
                 save_path,
-                normalize(output.cpu().numpy(), audio.numpy().squeeze()),
+                normalize(output.cpu().numpy(), ref_audio.cpu().numpy().squeeze()),
                 samplerate=sr,
             )
     logger.info(

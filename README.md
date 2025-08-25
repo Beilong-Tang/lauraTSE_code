@@ -34,6 +34,11 @@ Results on Libri2Mix clean testset:
 
 ## Inference
 
+Here we provide two types of inference
+- Normal (offline) inference: Run inference on the whole audio.
+- Streaming inference: Audios are split into chunks to simulate the streaming inference.
+
+### Normal (offline) inference
 ```sh
 # Input wavs
 mix_wav_scp="<Path to mix scp>"
@@ -62,10 +67,47 @@ bash recipes/inference.sh --mix_wav_scp $mix_wav_scp \
  --codec_config_file $codec_config_file \
  --output_dir $output_dir \
  --num_proc $num_proc \
- --gpus $gpus
+ --gpus "$gpus" 
 ```
 
 Output audio will be output to `<output_dir>/wavs/*.wav`.
+
+### Streaming inference
+
+```sh
+# Input wavs
+mix_wav_scp="<Path to mix scp>"
+ref_wav_scp="<Path to reference scp>"
+
+# LauraTSE config and ckpt
+config_path="<Path to model config>"
+model_ckpt="<Path to model ckpt>"
+
+# FunCodec ckpt and config
+codec_model_file="<Path to Funcodec model ckpt>"
+codec_config_file="<Path to Funcodec model yaml>"
+
+# Output dir. Audio output will be <output_dir>/wavs/*.wav.
+output_dir="<Path to output>"
+
+# DDP #
+num_proc=4 # How many processes to run in parallel
+gpus="cuda:0 cuda:1 cuda:2 cuda:3" # Available GPUs
+
+bash recipes/inference.sh --mix_wav_scp $mix_wav_scp \
+ --ref_wav_scp $ref_wav_scp \
+ --config_path $config_path \
+ --model_ckpt $model_ckpt \
+ --codec_model_file $codec_model_file \
+ --codec_config_file $codec_config_file \
+ --output_dir $output_dir \
+ --num_proc $num_proc \
+ --gpus "$gpus" \
+ --infer "trunk" \
+ --hop_ds 2
+```
+
+Note that we add `infer` and `hop_ds` to the command to specify the inference mode and the trunk size (seconds). By default, the trunk size is 2 seconds.
 
 
 ## Training
