@@ -4,7 +4,7 @@
 [![Demo](https://img.shields.io/badge/Demo-green?&logo=youtube)](https://beilong-tang.github.io/lauraTSE.demo//)
 
 
-Official repository for [LauraTSE: Target Speaker Extraction using Auto-Regressive Decoder-Only Language Models](https://arxiv.org/abs/2504.07402). -->
+Official repository for [LauraTSE: Target Speaker Extraction using Auto-Regressive Decoder-Only Language Models](https://arxiv.org/abs/2504.07402).
 
 To refer to our LauraTSE model, please see `src/model/laura_model_only_clean.py`. It is adapted from `LauraGPT` model from [FunCodec](https://github.com/modelscope/FunCodec). 
 
